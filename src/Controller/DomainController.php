@@ -25,12 +25,12 @@ class DomainController extends AbstractController
         if($newCheckForm->isSubmitted() && $newCheckForm->isValid()){
 
             $element = $newCheckForm->get('element');
-            $domain = $checkService->getDomain($element->getData());
-            if(! $domain){
+            $report = $checkService->getReport($element->getData());
+            if(! $report->getDomain()){
                 $element->addError(new FormError("Invalid format"));
             }else{
                 $em->flush();
-                return $this->redirectToRoute('app_domain_check', ['host' => $domain->getHost()]);
+                return $this->redirectToRoute('app_domain_check', ['host' => $report->getDomain()->getHost()]);
             }
         }
 

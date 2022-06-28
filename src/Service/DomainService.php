@@ -2,18 +2,24 @@
 namespace App\Service;
 
 use App\Entity\Domain;
+use App\Entity\Report;
 use App\Repository\DomainRepository;
+use App\Repository\ReportRepository;
 
 class DomainService {
 
-    public function __construct(private DomainRepository $domainRepository)
+    public function __construct(private DomainRepository $domainRepository, private ReportRepository $reportRepository)
     {
     }
 
-    public function getDomain($domain): ?Domain {
-        $domain = $this->extractDomain($domain);
-        $this->domainRepository->findSimilar($domain);
-        return $domain;
+    public function getReport($text): ?Report {
+        $domain = $this->extractDomain($text);
+        $domain = $this->domainRepository->findSimilar($domain);
+
+        $report = new Report($text, $domain);
+        $this->reportRepository->add($report);
+
+        return $report;
     }
 
     private function extractDomain(?string $text): ?Domain {

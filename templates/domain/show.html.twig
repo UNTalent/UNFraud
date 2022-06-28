@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Is {{ domain }} a legit website?{% endblock %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+    {% if domain.rating %}
+        {% set rating = domain.rating %}
+        <h2>{{ rating.name }}</h2>
+
+        {% if rating.description%}
+            <h3>What does that mean?</h3>
+            <p>
+                {{ rating.description }}
+            </p>
+        {% endif%}
+
+        {% if rating.todo%}
+            <h3>What should you do?</h3>
+            <p>
+                {{ rating.todo }}
+            </p>
+        {% endif%}
+
+    {% else %}
+        <p>
+            This domain is currently reviewed by our team. We do not recommend to use it for the moment.
+        </p>
+    {% endif %}
+
+{% endblock %}

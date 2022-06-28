@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Check the email address{% endblock %}
+
+{% block body %}
+
+    {{ form_start(newCheckForm) }}
+        {{ form_widget(newCheckForm) }}
+        <button type="submit">Check</button>
+    {{ form_end(newCheckForm) }}
+
+{% endblock %}

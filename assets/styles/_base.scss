@@ -44,4 +44,8 @@ p {
   padding: $size-spacer-lg;
   border-radius: $size-spacer-md;
   border: 2px solid transparentize($color-text, .9);
+
+  form {
+    margin-top: $size-spacer-lg;
+  }
 }

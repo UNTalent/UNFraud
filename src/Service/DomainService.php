@@ -36,6 +36,10 @@ class DomainService {
     }
 
     private function createDomain(string $domain){
+        $domain = mb_strtolower($domain);
+        if(preg_match('#^www\.#i', $domain)){
+            $domain = mb_substr($domain, 4);
+        }
         return new Domain($domain);
     }
 

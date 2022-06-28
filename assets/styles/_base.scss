@@ -26,19 +26,22 @@ header {
 }
 
 main {
-  margin: $size-spacer-lg auto;
+  margin: $size-spacer-xl auto;
 }
 
 footer {
-  margin: $size-spacer-lg auto;
+  margin: $size-spacer-xl auto;
   font-size: .9em;
   opacity: .6;
 }
 
 p {
-  opacity: .8;
+  opacity: .7;
 }
 
 #intro {
-  margin: $size-spacer-lg 0;
+  margin: $size-spacer-xl 0;
+  padding: $size-spacer-lg;
+  border-radius: $size-spacer-md;
+  border: 2px solid transparentize($color-text, .9);
 }

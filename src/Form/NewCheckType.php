@@ -18,7 +18,10 @@ class NewCheckType extends AbstractType
     {
         $builder
             ->add('element', UrlType::class, [
-                'label' => "Email address or Url",
+                'label' => "Enter an email address or an url",
+                'attr' => [
+                    'placeholder' => "https://unops.org, hr@unicef.org, ..."
+                ],
                 'required' => true,
                 'constraints' => [
                     new AtLeastOneOf([

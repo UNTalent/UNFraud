@@ -1,0 +1,35 @@
+body {
+  font-family: Helvetica, sans-serif;
+  background-color: $color-background;
+  color: $color-text;
+}
+
+a {
+  color: $color-action;
+  &:hover, &:focus {
+    color: $color-action-active;
+  }
+}
+
+header, main, footer {
+  max-width: $size-body;
+  margin: 0 auto;
+  padding: 0 $size-spacer-margin;
+}
+
+header {
+  padding: $size-spacer-md $size-spacer-margin;
+  img {
+    max-height: 4em;
+  }
+}
+
+main {
+  margin: $size-spacer-lg auto;
+}
+
+footer {
+  margin: $size-spacer-lg auto;
+  font-size: .9em;
+  opacity: .6;
+}

@@ -1,0 +1,58 @@
+
+form {
+
+  display: grid;
+  gap: $size-spacer-md;
+
+  // Form groups (label + input)
+  > div > div {
+    display: grid;
+    gap: $size-spacer-sm;
+  }
+
+  // Used for errors in forms
+  ul {
+    padding: 0;
+    margin: 0;
+    color: $color-danger;
+    display: grid;
+    gap: $size-spacer-xs;
+
+    li {
+      margin: 0;
+      font-style: italic;
+      display: block;
+    }
+  }
+
+  input {
+    background: $color-text;
+    color: $color-background;
+    border: 0;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: $size-spacer-md;
+  }
+
+  label {
+    font-variant: all-small-caps;
+    font-weight: bolder;
+    display: block;
+  }
+}
+
+button, .btn {
+  background: $color-action;
+  color: $color-action-contrast;
+  border: 2px solid $color-action;
+  text-transform: uppercase;
+  box-sizing: border-box;
+  padding: $size-spacer-sm $size-spacer-md;
+  border-radius: $size-spacer-xs;
+  font-weight: bolder;
+
+  &:hover, &:focus {
+    background: $color-action-active;
+  }
+}

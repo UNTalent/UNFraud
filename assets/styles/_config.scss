@@ -1,0 +1,17 @@
+$color-primary: #00B4FF;
+$color-background: #123;
+$color-text: #fff;
+$color-danger: #f00;
+
+$color-action-contrast: $color-background;
+$color-action: $color-primary;
+$color-action-active: lighten($color-primary, 10%);
+
+$size-body: 40rem;
+
+$size-spacer-xs: .15rem;
+$size-spacer-sm: .5rem;
+$size-spacer-md: 1rem;
+$size-spacer-lg: 5rem;
+
+$size-spacer-margin: $size-spacer-md

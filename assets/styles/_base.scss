@@ -1,5 +1,6 @@
 body {
   font-family: Helvetica, sans-serif;
+  line-height: 1.8em;
   background-color: $color-background;
   color: $color-text;
 }
@@ -32,4 +33,12 @@ footer {
   margin: $size-spacer-lg auto;
   font-size: .9em;
   opacity: .6;
+}
+
+p {
+  opacity: .8;
+}
+
+#intro {
+  margin: $size-spacer-lg 0;
 }

@@ -4,9 +4,29 @@
 
 {% block body %}
 
-    {{ form_start(newCheckForm) }}
-        {{ form_widget(newCheckForm) }}
-        <button type="submit" class="btn">Check &rarr;</button>
-    {{ form_end(newCheckForm) }}
+    <div id="intro">
+
+        <h1>Is your source to legit?</h1>
+
+        <p class="important">
+            Do you want to know if the source of a job offer, partnership, or any other correspondence is legit?
+            Use this form to validate an email address or an url.
+        </p>
+
+        {{ form_start(newCheckForm) }}
+            {{ form_widget(newCheckForm) }}
+            <button type="submit" class="btn">Check &rarr;</button>
+        {{ form_end(newCheckForm) }}
+    </div>
+
+
+    <table>
+    {% for domain in recentDomains %}
+        <tr>
+            <td><a href="{{ path('app_domain_check', {host: domain.host}) }}">{{ domain }}</a></td>
+            <td>{{ domain.rating }}</td>
+        </tr>
+    {% endfor %}
+    </table>
 
 {% endblock %}

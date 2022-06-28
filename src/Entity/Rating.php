@@ -33,6 +33,11 @@ class Rating
         $this->domains = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
+
     public function getName(): ?string
     {
         return $this->name;

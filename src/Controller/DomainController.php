@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Domain;
 use App\Form\NewCheckType;
+use App\Repository\DomainRepository;
 use App\Service\DomainService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DomainController extends AbstractController
 {
     #[Route('/', name: 'search')]
-    public function search(Request $request, DomainService $checkService, EntityManagerInterface $em): Response
+    public function search(Request $request, DomainService $checkService, DomainRepository $domainRepository, EntityManagerInterface $em): Response
     {
 
         $newCheckForm = $this->createForm(NewCheckType::class);
@@ -27,7 +28,6 @@ class DomainController extends AbstractController
             $domain = $checkService->getDomain($element->getData());
             if(! $domain){
                 $element->addError(new FormError("Invalid format"));
-                //$newCheckForm->addError(new FormError("Please enter a website, a page or an email address.", null, null, null, $element));
             }else{
                 $em->flush();
                 return $this->redirectToRoute('app_domain_check', ['host' => $domain->getHost()]);
@@ -36,6 +36,7 @@ class DomainController extends AbstractController
 
         return $this->renderForm('domain/search.html.twig', [
             'newCheckForm' => $newCheckForm,
+            'recentDomains' => $domainRepository->findRecently()
         ]);
     }
 

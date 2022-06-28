@@ -56,6 +56,15 @@ class DomainRepository extends ServiceEntityRepository
         ]);
     }
 
+    public function findRecently(){
+        return $this->createQueryBuilder('domain')
+            ->join('domain.rating', 'rating')
+            ->orderBy('domain.id', 'ASC')
+
+            ->getQuery()->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Domain[] Returns an array of Domain objects
 //     */

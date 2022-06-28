@@ -1,0 +1,15 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+  tr {
+
+    td {
+      padding: $size-spacer-xs $size-spacer-sm;
+    }
+
+    &:nth-child(odd) td {
+      background: transparentize($color-text, .95);
+    }
+  }
+
+}

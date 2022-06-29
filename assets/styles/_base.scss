@@ -40,12 +40,21 @@ p {
 }
 
 #intro {
+  form {
+    margin-top: $size-spacer-lg;
+  }
+}
+
+.card {
   margin: $size-spacer-xl 0;
   padding: $size-spacer-lg;
   border-radius: $size-spacer-md;
   border: 2px solid transparentize($color-text, .9);
 
-  form {
-    margin-top: $size-spacer-lg;
+  @include width-tablet {
+    border-width: 2px 0;
+    border-radius: 0;
+    padding: $size-spacer-lg 0;
   }
+
 }

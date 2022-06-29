@@ -27,6 +27,7 @@ final class Version20220629185532 extends AbstractMigration
         $this->addSql('ALTER TABLE analysis ADD CONSTRAINT FK_33C730A32EFC6 FOREIGN KEY (rating_id) REFERENCES rating (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE domain DROP CONSTRAINT fk_a7a91e0ba32efc6');
         $this->addSql('DROP INDEX idx_a7a91e0ba32efc6');
+        $this->addSql('UPDATE domain SET rating_id=NULL');
         $this->addSql('ALTER TABLE domain RENAME COLUMN rating_id TO analysis_id');
         $this->addSql('ALTER TABLE domain ADD CONSTRAINT FK_A7A91E0B7941003F FOREIGN KEY (analysis_id) REFERENCES analysis (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('CREATE INDEX IDX_A7A91E0B7941003F ON domain (analysis_id)');

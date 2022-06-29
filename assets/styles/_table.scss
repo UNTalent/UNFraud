@@ -5,6 +5,11 @@ table {
 
     td {
       padding: $size-spacer-xs $size-spacer-sm;
+
+      &.right {
+        text-align: right;
+      }
+
     }
 
     &:nth-child(odd) td {

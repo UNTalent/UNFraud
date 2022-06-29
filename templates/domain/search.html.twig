@@ -26,6 +26,8 @@
         <tr>
             <td><a href="{{ path('app_domain_check', {host: domain.host}) }}">{{ domain }}</a></td>
             <td>{{ domain.analysis.rating }}</td>
+            <td class="right"><span
+                        class="badge alert {{ domain.analysis.rating.cssClass }}" {{ domain.analysis.rating }}</td>
         </tr>
     {% endfor %}
     </table>

@@ -58,7 +58,8 @@ class DomainRepository extends ServiceEntityRepository
 
     public function findRecently(){
         return $this->createQueryBuilder('domain')
-            ->join('domain.rating', 'rating')
+            ->join('domain.analysis', 'analysis')->addSelect('analysis')
+            ->join('analysis.rating', 'rating')->addSelect('rating')
             ->orderBy('domain.id', 'ASC')
 
             ->getQuery()->getResult()

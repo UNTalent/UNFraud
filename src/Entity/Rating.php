@@ -25,12 +25,12 @@ class Rating
     #[ORM\Column(type: 'string', length: 50)]
     private $cssClass;
 
-    #[ORM\OneToMany(mappedBy: 'rating', targetEntity: Domain::class)]
-    private $domains;
+    #[ORM\OneToMany(mappedBy: 'rating', targetEntity: Analysis::class)]
+    private $analyses;
 
     public function __construct()
     {
-        $this->domains = new ArrayCollection();
+        $this->analyses = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -87,29 +87,29 @@ class Rating
     }
 
     /**
-     * @return Collection<int, Domain>
+     * @return Collection<int, Analysis>
      */
-    public function getDomains(): Collection
+    public function getAnalyses(): Collection
     {
-        return $this->domains;
+        return $this->analyses;
     }
 
-    public function addDomain(Domain $domain): self
+    public function addAnalysis(Analysis $analysis): self
     {
-        if (!$this->domains->contains($domain)) {
-            $this->domains[] = $domain;
-            $domain->setRating($this);
+        if (!$this->analyses->contains($analysis)) {
+            $this->analyses[] = $analysis;
+            $analysis->setRating($this);
         }
 
         return $this;
     }
 
-    public function removeDomain(Domain $domain): self
+    public function removeAnalysis(Analysis $analysis): self
     {
-        if ($this->domains->removeElement($domain)) {
+        if ($this->analyses->removeElement($analysis)) {
             // set the owning side to null (unless already changed)
-            if ($domain->getRating() === $this) {
-                $domain->setRating(null);
+            if ($analysis->getRating() === $this) {
+                $analysis->setRating(null);
             }
         }
 

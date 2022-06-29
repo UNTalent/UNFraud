@@ -1,0 +1,25 @@
+.card {
+  margin: $size-spacer-lg 0;
+  padding: $size-spacer-lg;
+  border-radius: $size-spacer-md;
+  border: 2px solid transparentize($color-text, .9);
+
+  &.alert {
+
+    &.ok {
+      background: #007700;
+    }
+
+    &.danger {
+      border-color: #B0413E;
+    }
+
+  }
+
+  @include width-tablet {
+    border-width: 2px 0;
+    border-radius: 0;
+    padding: $size-spacer-lg 0;
+  }
+
+}

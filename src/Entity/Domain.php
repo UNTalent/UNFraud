@@ -17,11 +17,11 @@ class Domain
     #[ORM\Column(type: 'string', length: 100, unique: true)]
     private $host;
 
-    #[ORM\ManyToOne(targetEntity: Rating::class, inversedBy: 'domains')]
-    private $rating;
-
     #[ORM\OneToMany(mappedBy: 'domain', targetEntity: Report::class)]
     private $reports;
+
+    #[ORM\ManyToOne(targetEntity: Analysis::class, inversedBy: 'domains')]
+    private $analysis;
 
     public function __construct($host)
     {
@@ -42,18 +42,6 @@ class Domain
     public function setHost(string $host): self
     {
         $this->host = $host;
-
-        return $this;
-    }
-
-    public function getRating(): ?Rating
-    {
-        return $this->rating;
-    }
-
-    public function setRating(?Rating $rating): self
-    {
-        $this->rating = $rating;
 
         return $this;
     }
@@ -84,6 +72,18 @@ class Domain
                 $report->setDomain(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAnalysis(): ?Analysis
+    {
+        return $this->analysis;
+    }
+
+    public function setAnalysis(?Analysis $analysis): self
+    {
+        $this->analysis = $analysis;
 
         return $this;
     }

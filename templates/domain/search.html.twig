@@ -25,7 +25,7 @@
     {% for domain in recentDomains %}
         <tr>
             <td><a href="{{ path('app_domain_check', {host: domain.host}) }}">{{ domain }}</a></td>
-            <td>{{ domain.rating }}</td>
+            <td>{{ domain.analysis.rating }}</td>
         </tr>
     {% endfor %}
     </table>

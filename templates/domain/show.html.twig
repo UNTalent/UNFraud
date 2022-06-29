@@ -6,28 +6,51 @@
 
     <h1>{{ block('title') }}</h1>
 
-    {% if domain.rating %}
-        {% set rating = domain.rating %}
-        <h2>{{ rating.name }}</h2>
+    <p>
+        Did you receive an email from someone with an address <i>@{{ domain }}</i>?
+        Did you find some information or an offer on a website starting by <i>http(s)://{{ domain }}</i>?
+    </p>
 
-        {% if rating.description%}
-            <h3>What does that mean?</h3>
-            <p>
-                {{ rating.description }}
-            </p>
-        {% endif%}
+    {% set analysis = domain.analysis ?? false %}
+    {% if analysis %}
 
-        {% if rating.todo%}
+        {% set rating = analysis.rating %}
+
+        <div class="card alert {{ rating.cssClass }}">
+
+
+            <h2>{{ rating.name }}: {{ analysis.title }}</h2>
+
+            {% if rating.description or analysis.instructions %}
+                <h3>What does that mean?</h3>
+                {% if rating.description %}
+                    <p>
+                        {{ rating.description }}
+                    </p>
+                {% endif %}
+                {% if analysis.instructions %}
+                    <p>
+                        {{ analysis.instructions }}
+                    </p>
+                {% endif %}
+            {% endif %}
+
+        </div>
+
+        {% if rating.todo ?? false %}
             <h3>What should you do?</h3>
             <p>
                 {{ rating.todo }}
             </p>
-        {% endif%}
+        {% endif %}
 
     {% else %}
-        <p>
-            This domain is currently reviewed by our team. We do not recommend to use it for the moment.
-        </p>
+        <div class="card">
+            <h2>Under review</h2>
+            <p>
+                This domain is currently reviewed by our team. We do not recommend to use it for the moment.
+            </p>
+        </div>
     {% endif %}
 
 {% endblock %}

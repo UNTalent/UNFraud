@@ -39,31 +39,43 @@ class DomainRepository extends ServiceEntityRepository
         }
     }
 
-    public function findSimilar(Domain $domain){
+    private function getActiveQueryBuilder()
+    {
+        return $this->createQueryBuilder('domain')
+            ->join('domain.analysis', 'analysis')->addSelect('analysis')
+            ->join('analysis.rating', 'rating')->addSelect('rating');
+    }
+
+    public function findSimilar(Domain $domain)
+    {
         $existing = $this->findOneBy([
             'host' => $domain->getHost()
         ]);
-        if(! $existing){
+        if (!$existing) {
             $this->add($domain);
             return $domain;
         }
         return $existing;
     }
 
-    public function findOneByHost($host): ?Domain{
+    public function findOneByHost($host): ?Domain
+    {
         return $this->findOneBy([
             'host' => $host
         ]);
     }
 
-    public function findRecently(){
-        return $this->createQueryBuilder('domain')
-            ->join('domain.analysis', 'analysis')->addSelect('analysis')
-            ->join('analysis.rating', 'rating')->addSelect('rating')
-            ->orderBy('domain.id', 'ASC')
+    public function findActive()
+    {
+        return $this->getActiveQueryBuilder()
+            ->getQuery()->getResult();
+    }
 
-            ->getQuery()->getResult()
-        ;
+    public function findRecently()
+    {
+        return $this->getActiveQueryBuilder()
+            ->orderBy('domain.id', 'ASC')
+            ->getQuery()->getResult();
     }
 
 //    /**

@@ -1,0 +1,16 @@
+{% extends "sitemap/_base.xml.twig" %}
+
+{% block content %}
+<url>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
+    <loc>{{ url('app_domain_search') }}</loc>
+</url>
+{% for domain in domains %}
+    <url>
+    <changefreq>weekly</changefreq>
+    <priority>.9</priority>
+    <loc>{{ url('app_domain_check',{host: domain.host}) }}</loc>
+    </url>
+{% endfor %}
+{% endblock %}

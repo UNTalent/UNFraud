@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Domain;
 use App\Form\NewCheckType;
 use App\Repository\DomainRepository;
+use App\Repository\ReportRepository;
 use App\Service\DomainService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,16 +18,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class DomainController extends AbstractController
 {
     #[Route('/', name: 'search')]
-    public function search(Request $request, DomainService $checkService, DomainRepository $domainRepository, EntityManagerInterface $em): Response
+    public function search(Request                $request, DomainService $checkService,
+                           DomainRepository       $domainRepository, ReportRepository $reportRepository,
+                           EntityManagerInterface $em): Response
     {
 
         $newCheckForm = $this->createForm(NewCheckType::class);
         $newCheckForm->handleRequest($request);
-        if($newCheckForm->isSubmitted() && $newCheckForm->isValid()){
+        if ($newCheckForm->isSubmitted() && $newCheckForm->isValid()) {
 
             $element = $newCheckForm->get('element');
             $report = $checkService->getReport($element->getData());
-            if(! $report->getDomain()){
+            if (!$report->getDomain()) {
                 $element->addError(new FormError("Invalid format"));
             }else{
                 $em->flush();
@@ -36,6 +39,7 @@ class DomainController extends AbstractController
 
         return $this->renderForm('domain/search.html.twig', [
             'newCheckForm' => $newCheckForm,
+            'reportCount' => $reportRepository->count([]),
             'recentDomains' => $domainRepository->findRecently()
         ]);
     }

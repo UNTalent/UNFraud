@@ -41,6 +41,7 @@ class DomainController extends AbstractController
             'newCheckForm' => $newCheckForm,
             'reportCount' => $reportRepository->getTotalCount(),
             'notLegitReportCount' => $reportRepository->getNotLegitCount(),
+            'recentDangerousDomains' => $reportRepository->getLastDangerous(),
             'recentDomains' => $domainRepository->findRecently()
         ]);
     }

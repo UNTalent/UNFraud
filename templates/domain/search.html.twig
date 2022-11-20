@@ -19,20 +19,15 @@
         {{ form_end(newCheckForm) }}
     </div>
 
+    <h2>Recently detected fraud attempts</h2>
+
+    {{ include('domain/_list.html.twig', {elements: recentDangerousDomains, isReport: true}) }}
+
     <h2>
         {{ (notLegitReportCount/reportCount*100)|round }}%
         of the {{ reportCount }} checks were not legit
     </h2>
 
-    <table>
-        {% for domain in recentDomains %}
-            <tr>
-                <td><a href="{{ path('app_domain_check', {host: domain.host}) }}">{{ domain }}</a></td>
-                <td>{{ domain.analysis.rating }}</td>
-                <td class="right"><span
-                            class="badge alert {{ domain.analysis.rating.cssClass }}" {{ domain.analysis.rating }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    {{ include('domain/_list.html.twig', {elements: recentDomains}) }}
 
 {% endblock %}

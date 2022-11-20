@@ -47,10 +47,11 @@ class DomainController extends AbstractController
 
 
     #[Route('check/{host}', name: 'check')]
-    public function check(Domain $domain): Response
+    public function check(Domain $domain, ReportRepository $reportRepository): Response
     {
         return $this->renderForm('domain/show.html.twig', [
             'domain' => $domain,
+            'reports' => $reportRepository->findByDomain($domain),
         ]);
     }
 }

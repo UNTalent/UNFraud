@@ -53,4 +53,16 @@
         </div>
     {% endif %}
 
+    {% if reports|length %}
+        <h2>How many times has {{ domain }} been checked?</h2>
+
+        <p>
+            This domain has been checked <b>{{ reports|length }} times</b>.
+            {% if domain.analysis.rating.isDangerous %}
+                This number can potentially correspond to the number of uncovered fraud schemes commited via {{ domain }}.
+            {% endif %}
+        </p>
+
+    {% endif %}
+
 {% endblock %}

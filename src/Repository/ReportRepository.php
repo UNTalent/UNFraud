@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Domain;
 use App\Entity\Report;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -60,6 +61,13 @@ class ReportRepository extends ServiceEntityRepository
             ->select('count(report.id)')
             ->where('rating.isDangerous IS NULL OR rating.isDangerous = TRUE')
             ->getQuery()->getSingleScalarResult();
+    }
+
+    public function findByDomain(Domain $domain)
+    {
+        return $this->findBy([
+            'domain' => $domain
+        ]);
     }
 
 //    /**

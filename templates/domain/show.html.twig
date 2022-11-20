@@ -44,6 +44,18 @@
             </p>
         {% endif %}
 
+        {% if reports|length %}
+            <h3>How many times has {{ domain }} been checked?</h3>
+
+            <p>
+                This domain has been checked <b>{{ reports|length }} times</b>.
+                {% if domain.analysis.rating.isDangerous %}
+                    This number can potentially correspond to the number of uncovered fraud schemes commited via {{ domain }}.
+                {% endif %}
+            </p>
+
+        {% endif %}
+
     {% else %}
         <div class="card">
             <h2>Under review</h2>
@@ -51,18 +63,6 @@
                 This domain is currently reviewed by our team. We do not recommend to use it for the moment.
             </p>
         </div>
-    {% endif %}
-
-    {% if reports|length %}
-        <h2>How many times has {{ domain }} been checked?</h2>
-
-        <p>
-            This domain has been checked <b>{{ reports|length }} times</b>.
-            {% if domain.analysis.rating.isDangerous %}
-                This number can potentially correspond to the number of uncovered fraud schemes commited via {{ domain }}.
-            {% endif %}
-        </p>
-
     {% endif %}
 
 {% endblock %}

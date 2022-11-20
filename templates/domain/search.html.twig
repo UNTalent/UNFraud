@@ -21,13 +21,13 @@
 
     <h2>Recently detected fraud attempts</h2>
 
-    {{ include('domain/_list.html.twig', {elements: recentDangerousDomains, isReport: true}) }}
+    {{ include('domain/_list.html.twig', {domains: recentDangerousDomains}) }}
 
     <h2>
         {{ (notLegitReportCount/reportCount*100)|round }}%
         of the {{ reportCount }} checks were not legit
     </h2>
 
-    {{ include('domain/_list.html.twig', {elements: recentDomains}) }}
+    {{ include('domain/_list.html.twig', {domains: recentDomains}) }}
 
 {% endblock %}

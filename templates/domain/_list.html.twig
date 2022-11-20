@@ -1,7 +1,5 @@
-{% set isReport = isReport ?? false %}
 <table>
-    {% for element in elements %}
-        {% set domain = isReport ? element.domain : element %}
+    {% for domain in domains %}
         <tr>
             <td><a href="{{ path('app_domain_check', {host: domain.host}) }}">{{ domain }}</a></td>
             <td>{{ domain.analysis.rating }}</td>

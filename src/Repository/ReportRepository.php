@@ -70,16 +70,6 @@ class ReportRepository extends ServiceEntityRepository
         ]);
     }
 
-    public function getLastDangerous()
-    {
-        return $this->getQueryBuilderWithAnalysis()
-            ->distinct('domain.id')
-            ->orderBy('report.createdAt', 'DESC')
-            ->andWhere('rating.isDangerous = TRUE')
-            ->setMaxResults(10)
-            ->getQuery()->getResult();
-    }
-
 //    /**
 //     * @return Report[] Returns an array of Report objects
 //     */

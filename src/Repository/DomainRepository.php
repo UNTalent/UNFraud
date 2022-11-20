@@ -71,12 +71,25 @@ class DomainRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
-    public function findRecently()
+    public function findRecent()
     {
         return $this->getActiveQueryBuilder()
             ->orderBy('domain.id', 'ASC')
             ->getQuery()->getResult();
     }
+
+
+    public function findRecentDangerous()
+    {
+        return $this->getActiveQueryBuilder()
+            ->join('domain.reports', 'report')
+            ->where('rating.isDangerous = TRUE')
+            ->orderBy('report.createdAt', 'DESC')
+            ->setMaxResults(10)
+            ->getQuery()->getResult();
+    }
+
+
 
 //    /**
 //     * @return Domain[] Returns an array of Domain objects

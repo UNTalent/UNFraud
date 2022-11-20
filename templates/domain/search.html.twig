@@ -19,7 +19,10 @@
         {{ form_end(newCheckForm) }}
     </div>
 
-    <h2>Already {{ reportCount }} sources tested</h2>
+    <h2>
+        {{ (notLegitReportCount/reportCount*100)|round }}%
+        of the {{ reportCount }} checks were not legit
+    </h2>
 
     <table>
         {% for domain in recentDomains %}

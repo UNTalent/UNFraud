@@ -39,7 +39,8 @@ class DomainController extends AbstractController
 
         return $this->renderForm('domain/search.html.twig', [
             'newCheckForm' => $newCheckForm,
-            'reportCount' => $reportRepository->count([]),
+            'reportCount' => $reportRepository->getTotalCount(),
+            'notLegitReportCount' => $reportRepository->getNotLegitCount(),
             'recentDomains' => $domainRepository->findRecently()
         ]);
     }

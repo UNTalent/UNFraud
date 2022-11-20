@@ -28,6 +28,9 @@ class Rating
     #[ORM\OneToMany(mappedBy: 'rating', targetEntity: Analysis::class)]
     private $analyses;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $isDangerous = null;
+
     public function __construct()
     {
         $this->analyses = new ArrayCollection();
@@ -112,6 +115,18 @@ class Rating
                 $analysis->setRating(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isDangerous(): ?bool
+    {
+        return $this->isDangerous;
+    }
+
+    public function setIsDangerous(?bool $isDangerous): self
+    {
+        $this->isDangerous = $isDangerous;
 
         return $this;
     }

@@ -39,18 +39,25 @@ class ReportRepository extends ServiceEntityRepository
         }
     }
 
+    private function getQueryBuilderWithAnalysis()
+    {
+        return $this->createQueryBuilder('report')
+            ->join('report.domain', 'domain')
+            ->join('domain.analysis', 'analysis')
+            ->join('analysis.rating', 'rating');
+    }
+
     public function getTotalCount()
     {
-        return $this->count([]);
+        return $this->getQueryBuilderWithAnalysis()
+            ->select('count(report.id)')
+            ->getQuery()->getSingleScalarResult();
     }
 
     public function getNotLegitCount()
     {
-        return $this->createQueryBuilder('report')
+        return $this->getQueryBuilderWithAnalysis()
             ->select('count(report.id)')
-            ->join('report.domain', 'domain')
-            ->join('domain.analysis', 'analysis')
-            ->join('analysis.rating', 'rating')
             ->where('rating.isDangerous IS NULL OR rating.isDangerous = TRUE')
             ->getQuery()->getSingleScalarResult();
     }

@@ -7,16 +7,23 @@ use App\Repository\RatingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: RatingRepository::class)]
+#[ExclusionPolicy("ALL")]
 class Rating
 {
     use UUIDTrait;
 
     #[ORM\Column(type: 'string', length: 30)]
+    #[Expose]
+    #[SerializedName("title")]
     private $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Expose]
     private $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
@@ -29,6 +36,7 @@ class Rating
     private $analyses;
 
     #[ORM\Column(type: 'boolean', nullable: true)]
+    #[Expose]
     private $isDangerous = null;
 
     public function __construct()

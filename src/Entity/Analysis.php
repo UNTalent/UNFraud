@@ -7,8 +7,11 @@ use App\Repository\AnalysisRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 #[ORM\Entity(repositoryClass: AnalysisRepository::class)]
+#[ExclusionPolicy("ALL")]
 class Analysis
 {
 
@@ -16,12 +19,14 @@ class Analysis
 
     #[ORM\ManyToOne(targetEntity: Rating::class, inversedBy: 'analyses')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Expose]
     private $rating;
 
     #[ORM\OneToMany(mappedBy: 'analysis', targetEntity: Domain::class)]
     private $domains;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Expose]
     private $title;
 
     #[ORM\Column(type: 'text', nullable: true)]

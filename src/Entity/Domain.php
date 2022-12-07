@@ -7,20 +7,25 @@ use App\Repository\DomainRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 #[ORM\Entity(repositoryClass: DomainRepository::class)]
+#[ExclusionPolicy("ALL")]
 class Domain
 {
 
     use UUIDTrait;
 
     #[ORM\Column(type: 'string', length: 100, unique: true)]
+    #[Expose]
     private $host;
 
     #[ORM\OneToMany(mappedBy: 'domain', targetEntity: Report::class)]
     private $reports;
 
     #[ORM\ManyToOne(targetEntity: Analysis::class, inversedBy: 'domains')]
+    #[Expose]
     private $analysis;
 
     public function __construct($host)

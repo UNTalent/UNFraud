@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Entity\Traits\UUIDTrait;
 use App\Repository\ReportRepository;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 #[ORM\Entity(repositoryClass: ReportRepository::class)]
+#[ExclusionPolicy("ALL")]
 class Report
 {
     use UUIDTrait;
@@ -16,6 +19,7 @@ class Report
 
     #[ORM\ManyToOne(targetEntity: Domain::class, cascade: ['persist'], inversedBy: 'reports')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Expose]
     private $domain;
 
     #[ORM\Column(type: 'datetime_immutable')]

@@ -2,16 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Domain;
-use App\Form\NewCheckType;
-use App\Repository\DomainRepository;
-use App\Repository\ReportRepository;
+use App\Repository\RatingRepository;
 use App\Service\DomainService;
-use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -29,4 +22,13 @@ class ApiController extends AbstractFOSRestController
         return $this->handleView($this->view($report, 200));
 
     }
+
+    #[Route('/ratings', name: 'ratings')]
+    public function ratings(RatingRepository $ratingRepository): Response
+    {
+        return $this->handleView($this->view([
+            'ratings' => $ratingRepository->findAll()
+        ], 200));
+    }
+
 }

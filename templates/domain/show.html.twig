@@ -16,10 +16,10 @@
 
         {% set rating = analysis.rating %}
 
-        <div class="card alert {{ rating.cssClass }}">
+        <div class="card alert {{ rating.cssClass }}" style="background: {{ rating.backgroundColor }}">
 
 
-            <h2>{{ rating.name }}: {{ analysis.title }}</h2>
+            <h2>{{ rating.title }}: {{ analysis.title }}</h2>
 
             {% if rating.description or analysis.instructions %}
                 <h3>What does that mean?</h3>

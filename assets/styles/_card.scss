@@ -18,21 +18,7 @@
 
 
 .alert {
-
   background: #111;
-
-  &.ok {
-    background: #007700;
-  }
-
-  &.warning {
-    background: #996600;
-  }
-
-  &.danger {
-    background: #B0413E;
-  }
-
 }
 
 .badge {
@@ -40,4 +26,5 @@
   height: $size-spacer-md;
   width: $size-spacer-md;
   border-radius: $size-spacer-md;
+  border: 2px solid rgba(255, 255, 255, 0.1);
 }

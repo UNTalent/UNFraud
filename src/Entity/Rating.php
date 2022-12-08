@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
-use JMS\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: RatingRepository::class)]
 #[ExclusionPolicy("ALL")]
@@ -19,8 +18,7 @@ class Rating
 
     #[ORM\Column(type: 'string', length: 30)]
     #[Expose]
-    #[SerializedName("title")]
-    private $name;
+    private $title;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Expose]
@@ -39,6 +37,10 @@ class Rating
     #[Expose]
     private $isDangerous = null;
 
+    #[ORM\Column(type: 'float', options: ["default" => 0])]
+    #[Expose]
+    private $level = 0.0;
+
     public function __construct()
     {
         $this->analyses = new ArrayCollection();
@@ -46,17 +48,17 @@ class Rating
 
     public function __toString(): string
     {
-        return $this->getName();
+        return $this->getTitle();
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -97,6 +99,26 @@ class Rating
         return $this;
     }
 
+    private function getColor($light): string
+    {
+        $red = 0;
+        $green = 120;
+        $angle = ($green - $red) * $this->getLevel() + $red;
+
+        return "hsl({$angle}deg 100% {$light}%)";
+    }
+
+
+    public function getBadgeColor(): string
+    {
+        return $this->getColor(35);
+    }
+
+    public function getBackgroundColor(): string
+    {
+        return $this->getColor(20);
+    }
+
     /**
      * @return Collection<int, Analysis>
      */
@@ -135,6 +157,18 @@ class Rating
     public function setIsDangerous(?bool $isDangerous): self
     {
         $this->isDangerous = $isDangerous;
+
+        return $this;
+    }
+
+    public function getLevel(): ?float
+    {
+        return $this->level;
+    }
+
+    public function setLevel(float $level): self
+    {
+        $this->level = $level;
 
         return $this;
     }

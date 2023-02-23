@@ -7,6 +7,7 @@ use App\Repository\ReportRepository;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\VirtualProperty;
 
 #[ORM\Entity(repositoryClass: ReportRepository::class)]
 #[ExclusionPolicy("ALL")]
@@ -68,5 +69,11 @@ class Report
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    #[VirtualProperty]
+    public function isAnalysed(): bool
+    {
+        return !!$this->getDomain()->getAnalysis();
     }
 }

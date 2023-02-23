@@ -10,6 +10,6 @@
 
 ### Run locally
 
-1. Run `composer install` to install the last packages and install dependencies automatically
+1. Run `composer install` to install the dependencies and run the migrations automatically
 2. Launch the server using the symfony client: `symfony serve`
 3. Open it in your browser (usually http://127.0.0.1:8000)

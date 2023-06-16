@@ -19,15 +19,19 @@
         {{ form_end(newCheckForm) }}
     </div>
 
-    <h2>Recently detected fraud attempts</h2>
+    {% if recentDangerousDomains %}
+        <h2>Recently detected fraud attempts</h2>
 
-    {{ include('domain/_list.html.twig', {domains: recentDangerousDomains}) }}
+        {{ include('domain/_list.html.twig', {domains: recentDangerousDomains}) }}
+    {% endif %}
 
-    <h2>
-        {{ (notLegitReportCount/reportCount*100)|round }}%
-        of the {{ reportCount }} checks were not legit
-    </h2>
+    {% if reportCount %}
+        <h2>
+            {{ (notLegitReportCount/reportCount*100)|round }}%
+            of the {{ reportCount }} checks were not legit
+        </h2>
 
-    {{ include('domain/_list.html.twig', {domains: recentDomains}) }}
+        {{ include('domain/_list.html.twig', {domains: recentDomains}) }}
+    {% endif %}
 
 {% endblock %}

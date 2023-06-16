@@ -28,6 +28,12 @@ class Domain
     #[Expose]
     private $analysis;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $soaNameRecord = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $lastCheckAt = null;
+
     public function __construct($host)
     {
         $this->setHost($host);
@@ -89,6 +95,30 @@ class Domain
     public function setAnalysis(?Analysis $analysis): self
     {
         $this->analysis = $analysis;
+
+        return $this;
+    }
+
+    public function getSoaNameRecord(): ?string
+    {
+        return $this->soaNameRecord;
+    }
+
+    public function setSoaNameRecord(?string $soaNameRecord): static
+    {
+        $this->soaNameRecord = $soaNameRecord;
+
+        return $this;
+    }
+
+    public function getLastCheckAt(): ?\DateTimeImmutable
+    {
+        return $this->lastCheckAt;
+    }
+
+    public function setLastCheckAt(?\DateTimeImmutable $lastCheckAt): static
+    {
+        $this->lastCheckAt = $lastCheckAt;
 
         return $this;
     }

@@ -89,6 +89,13 @@ class DomainRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    public function findToInvestigate()
+    {
+        return $this->createQueryBuilder('domain')
+            ->where('domain.lastCheckAt IS NULL')
+            ->getQuery()->getResult();
+    }
+
 
 
 //    /**

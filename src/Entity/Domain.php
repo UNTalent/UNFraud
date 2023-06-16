@@ -6,6 +6,7 @@ use App\Entity\Traits\UUIDTrait;
 use App\Repository\DomainRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -33,6 +34,12 @@ class Domain
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $lastCheckAt = null;
+
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $hostIpAddress = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $whoisData = null;
 
     public function __construct($host)
     {
@@ -119,6 +126,30 @@ class Domain
     public function setLastCheckAt(?\DateTimeImmutable $lastCheckAt): static
     {
         $this->lastCheckAt = $lastCheckAt;
+
+        return $this;
+    }
+
+    public function getHostIpAddress(): ?string
+    {
+        return $this->hostIpAddress;
+    }
+
+    public function setHostIpAddress(?string $hostIpAddress): static
+    {
+        $this->hostIpAddress = $hostIpAddress;
+
+        return $this;
+    }
+
+    public function getWhoisData(): ?string
+    {
+        return $this->whoisData;
+    }
+
+    public function setWhoisData(?string $whoisData): static
+    {
+        $this->whoisData = $whoisData;
 
         return $this;
     }

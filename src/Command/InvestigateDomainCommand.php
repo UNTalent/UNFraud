@@ -56,16 +56,31 @@ class InvestigateDomainCommand extends Command
 
         $domain->setLastCheckAt(new \DateTimeImmutable('now'));
 
-        $host = $domain->getHost();
+        $this->addSOA($domain);
+        $this->addIpAddress($domain);
 
-        $dns = dns_get_record($host, DNS_SOA);
+        return true;
+    }
 
+    private function addSOA(Domain $domain){
+        $dns = dns_get_record($domain->getHost(), DNS_SOA);
         foreach ($dns as $record) {
             if ($rname = $record['rname'] ?? false) {
                 $domain->setSoaNameRecord($rname);
+                return true;
             }
         }
+        return false;
+    }
 
-        return true;
+    private function addIpAddress(Domain $domain){
+        $dns = dns_get_record($domain->getHost(), DNS_A);
+        foreach ($dns as $record) {
+            if ($ip = $record['ip'] ?? false) {
+                $domain->setHostIpAddress($ip);
+                return true;
+            }
+        }
+        return false;
     }
 }

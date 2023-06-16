@@ -95,7 +95,7 @@ class DomainRepository extends ServiceEntityRepository
             ->where('domain.lastCheckAt IS NULL')
             ->join('domain.analysis', 'analysis')->addSelect('analysis')
             ->join('analysis.rating', 'rating')->addSelect('rating')
-            ->andWhere('rating.isDangerous = TRUE')
+            //->andWhere('rating.isDangerous = TRUE')
             ->getQuery()->getResult();
     }
 

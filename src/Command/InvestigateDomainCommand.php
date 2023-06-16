@@ -35,31 +35,20 @@ class InvestigateDomainCommand extends Command
 
         foreach ($domains as $domain) {
             $io->writeln("Checking $domain");
-            $name = $this->investigate($domain);
-
-            if ($name) {
-                $io->success("Found $name for $domain");
-            } else {
-                $io->writeln("Not found");
-            }
-
+            $this->investigate($domain);
+            $this->em->flush();
         }
 
-        $this->em->flush();
         $io->success('Done');
 
         return Command::SUCCESS;
     }
 
-    private function investigate(Domain $domain): false|string|null
+    private function investigate(Domain $domain): void
     {
-
         $domain->setLastCheckAt(new \DateTimeImmutable('now'));
-
         $this->addSOA($domain);
         $this->addIpAddress($domain);
-
-        return true;
     }
 
     private function addSOA(Domain $domain){

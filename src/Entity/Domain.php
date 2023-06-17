@@ -53,6 +53,9 @@ class Domain
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $whoisOwner = null;
 
+    #[ORM\Column(options: ['default' => 0])]
+    private int $reportCount = 0;
+
     public function __construct($host)
     {
         $this->setHost($host);
@@ -210,6 +213,18 @@ class Domain
     public function setWhoisOwner(?string $whoisOwner): static
     {
         $this->whoisOwner = $whoisOwner;
+
+        return $this;
+    }
+
+    public function getReportCount(): ?int
+    {
+        return $this->reportCount;
+    }
+
+    public function increaseReportCount(): static
+    {
+        $this->reportCount++;
 
         return $this;
     }

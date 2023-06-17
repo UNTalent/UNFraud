@@ -24,8 +24,10 @@ class DomainService {
 
         $report = new Report($text, $domain);
 
-        if ($save)
+        if ($save){
+            $domain->increaseReportCount();
             $this->reportRepository->add($report);
+        }
 
         return $report;
     }

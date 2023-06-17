@@ -74,7 +74,7 @@ class DomainRepository extends ServiceEntityRepository
     public function findRecent()
     {
         return $this->getActiveQueryBuilder()
-            ->orderBy('domain.id', 'ASC')
+            ->orderBy('domain.reportCount', 'DESC')
             ->getQuery()->getResult();
     }
 

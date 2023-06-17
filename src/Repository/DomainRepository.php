@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Domain;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -81,12 +82,14 @@ class DomainRepository extends ServiceEntityRepository
 
     public function findRecentDangerous()
     {
-        return $this->getActiveQueryBuilder()
+        $qb = $this->getActiveQueryBuilder()
             ->join('domain.reports', 'report')
             ->where('rating.isDangerous = TRUE')
             ->orderBy('report.createdAt', 'DESC')
-            ->setMaxResults(10)
-            ->getQuery()->getResult();
+            ->setMaxResults(8)
+        ;
+
+        return new Paginator($qb->getQuery());
     }
 
     public function findToInvestigate()

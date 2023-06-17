@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Entity\Domain;
 use App\Repository\DomainRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Iodev\Whois\Exceptions\ServerMismatchException;
 use Iodev\Whois\Factory;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -78,7 +79,13 @@ class InvestigateDomainCommand extends Command
     private function addWhois(Domain $domain){
 
         $whois = Factory::get()->createWhois();
-        $info = $whois->loadDomainInfo($domain->getHost());
+
+        try {
+            $info = $whois->loadDomainInfo($domain->getHost());
+        } catch (ServerMismatchException $e) {
+            // TLD not supported
+            return false;
+        }
 
         if($info){
             $domain->setWhoisData($info->getResponse()->text);

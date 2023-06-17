@@ -41,6 +41,18 @@ class Domain
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $whoisData = null;
 
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $whoisCreationDate = null;
+
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $whoisExpirationDate = null;
+
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $whoisUpdateDate = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $whoisOwner = null;
+
     public function __construct($host)
     {
         $this->setHost($host);
@@ -150,6 +162,54 @@ class Domain
     public function setWhoisData(?string $whoisData): static
     {
         $this->whoisData = $whoisData;
+
+        return $this;
+    }
+
+    public function getWhoisCreationDate(): ?\DateTimeImmutable
+    {
+        return $this->whoisCreationDate;
+    }
+
+    public function setWhoisCreationDate(?\DateTimeImmutable $whoisCreationDate): static
+    {
+        $this->whoisCreationDate = $whoisCreationDate;
+
+        return $this;
+    }
+
+    public function getWhoisExpirationDate(): ?\DateTimeImmutable
+    {
+        return $this->whoisExpirationDate;
+    }
+
+    public function setWhoisExpirationDate(?\DateTimeImmutable $whoisExpirationDate): static
+    {
+        $this->whoisExpirationDate = $whoisExpirationDate;
+
+        return $this;
+    }
+
+    public function getWhoisUpdateDate(): ?\DateTimeImmutable
+    {
+        return $this->whoisUpdateDate;
+    }
+
+    public function setWhoisUpdateDate(?\DateTimeImmutable $whoisUpdateDate): static
+    {
+        $this->whoisUpdateDate = $whoisUpdateDate;
+
+        return $this;
+    }
+
+    public function getWhoisOwner(): ?string
+    {
+        return $this->whoisOwner;
+    }
+
+    public function setWhoisOwner(?string $whoisOwner): static
+    {
+        $this->whoisOwner = $whoisOwner;
 
         return $this;
     }

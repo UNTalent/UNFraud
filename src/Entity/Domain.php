@@ -242,6 +242,16 @@ class Domain
         return $this->domainDnsRecords;
     }
 
+
+    /**
+     * @return Collection<int, DnsRecord>
+     */
+    public function getDnsRecords(): Collection {
+        return $this->getDomainDnsRecords()->map(function(DomainDnsRecord $record){
+            return $record->getDnsRecord();
+        });
+    }
+
     public function addDomainDnsRecord(DomainDnsRecord $domainDnsRecord): static
     {
         if (!$this->domainDnsRecords->contains($domainDnsRecord)) {

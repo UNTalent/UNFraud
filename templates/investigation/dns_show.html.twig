@@ -10,7 +10,11 @@
 
     {{ include('domain/_list.html.twig', {domains: record.domains}) }}
 
+    <h2>Records</h2>
 
-
+    {{ form_start(editForm) }}
+    {{ form_widget(editForm) }}
+    <button type="submit" class="btn">Save</button>
+    {{ form_end(editForm) }}
 
 {% endblock %}

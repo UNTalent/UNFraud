@@ -2,6 +2,7 @@
 
 namespace App\Entity\DomainData;
 
+use App\Entity\Analysis;
 use App\Entity\Domain;
 use App\Entity\Traits\UUIDTrait;
 use App\Repository\DomainData\DnsRecordRepository;
@@ -28,6 +29,9 @@ class DnsRecord
 
     #[ORM\OneToMany(mappedBy: 'dnsRecord', targetEntity: DomainDnsRecord::class)]
     private Collection $domainDnsRecords;
+
+    #[ORM\ManyToOne(inversedBy: 'associatedDnsRecords')]
+    private ?Analysis $applyAnalysis = null;
 
     public function __construct(string $recordType, string $value)
     {
@@ -107,5 +111,17 @@ class DnsRecord
      */
     public function getDangerousDomains(): Collection {
         return $this->getDomains()->filter(fn(Domain $domain) => $domain->getAnalysis()?->getRating()?->isDangerous() ?? false);
+    }
+
+    public function getApplyAnalysis(): ?Analysis
+    {
+        return $this->applyAnalysis;
+    }
+
+    public function setApplyAnalysis(?Analysis $applyAnalysis): static
+    {
+        $this->applyAnalysis = $applyAnalysis;
+
+        return $this;
     }
 }

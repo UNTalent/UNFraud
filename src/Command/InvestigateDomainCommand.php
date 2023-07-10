@@ -48,32 +48,7 @@ class InvestigateDomainCommand extends Command
 
     private function investigate(Domain $domain): void
     {
-        $domain->setLastCheckAt(new \DateTimeImmutable('now'));
-        $this->addSOA($domain);
-        $this->addIpAddress($domain);
         $this->addWhois($domain);
-    }
-
-    private function addSOA(Domain $domain){
-        $dns = dns_get_record($domain->getHost(), DNS_SOA);
-        foreach ($dns as $record) {
-            if ($rname = $record['rname'] ?? false) {
-                $domain->setSoaNameRecord($rname);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private function addIpAddress(Domain $domain){
-        $dns = dns_get_record($domain->getHost(), DNS_A);
-        foreach ($dns as $record) {
-            if ($ip = $record['ip'] ?? false) {
-                $domain->setHostIpAddress($ip);
-                return true;
-            }
-        }
-        return false;
     }
 
     private function addWhois(Domain $domain){

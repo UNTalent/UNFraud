@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\DomainData\DnsRecord;
 use App\Entity\Traits\UUIDTrait;
 use App\Repository\AnalysisRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -32,9 +33,18 @@ class Analysis
     #[ORM\Column(type: 'text', nullable: true)]
     private $instructions;
 
+    #[ORM\OneToMany(mappedBy: 'applyAnalysis', targetEntity: DnsRecord::class)]
+    private Collection $associatedDnsRecords;
+
+    public function __toString(): string
+    {
+        return $this->getTitle();
+    }
+
     public function __construct()
     {
         $this->domains = new ArrayCollection();
+        $this->associatedDnsRecords = new ArrayCollection();
     }
 
     public function getRating(): ?Rating
@@ -99,6 +109,36 @@ class Analysis
     public function setInstructions(?string $instructions): self
     {
         $this->instructions = $instructions;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DnsRecord>
+     */
+    public function getAssociatedDnsRecords(): Collection
+    {
+        return $this->associatedDnsRecords;
+    }
+
+    public function addAssociatedDnsRecord(DnsRecord $associatedDnsRecord): static
+    {
+        if (!$this->associatedDnsRecords->contains($associatedDnsRecord)) {
+            $this->associatedDnsRecords->add($associatedDnsRecord);
+            $associatedDnsRecord->setApplyAnalysis($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssociatedDnsRecord(DnsRecord $associatedDnsRecord): static
+    {
+        if ($this->associatedDnsRecords->removeElement($associatedDnsRecord)) {
+            // set the owning side to null (unless already changed)
+            if ($associatedDnsRecord->getApplyAnalysis() === $this) {
+                $associatedDnsRecord->setApplyAnalysis(null);
+            }
+        }
 
         return $this;
     }

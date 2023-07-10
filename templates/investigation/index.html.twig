@@ -15,13 +15,15 @@
                 {{ record.recordType }}
             </td>
             <td>
-                <a href="{{ path('investigation_dns_show', {id: record.id}) }}">{{ record.value }}</a>
-            </td>
-            <td>
                 {{ record.domains|length }}
             </td>
             <td>
-                {{ record.dangerousDomains|length / record.domains|length * 100|round(2) }}%
+                {% if record.dangerousDomains|length %}
+                    {{ record.dangerousDomains|length / record.domains|length * 100|round(2) }}%
+                {% endif %}
+            </td>
+            <td>
+                <a href="{{ path('investigation_dns_show', {id: record.id}) }}">{{ record.value }}</a>
             </td>
         </tr>
     {% endfor %}

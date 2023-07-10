@@ -19,14 +19,33 @@ class DNSService {
     public function saveDNS(Domain $domain): bool
     {
 
-        $dns = dns_get_record($domain->getHost(), DNS_A);
-        if(!$dns){
+        if(! $this->saveDNSEntries($domain, [DNS_A]))
+            return false;
+
+        if(! $this->saveDNSEntries($domain, [DNS_CNAME, DNS_MX, DNS_NS, DNS_SOA]))
+            return false;
+
+        return true;
+    }
+
+    private function saveDNSEntries(Domain $domain, array $types): bool {
+        $count = 0;
+        foreach ($types as $type) {
+            if($this->saveDNSEntriesOfType($domain, $type))
+                $count++;
+        }
+        return $count > 0;
+    }
+
+    private function saveDNSEntriesOfType(Domain $domain, int $type): bool {
+
+        try {
+            $dns = dns_get_record($domain->getHost(), $type);
+        } catch (\Exception $e) {
             return false;
         }
 
-        try {
-            $dns = dns_get_record($domain->getHost(), DNS_A + DNS_CNAME + DNS_MX + DNS_NS + DNS_SOA);
-        } catch (\Exception $e) {
+        if(!$dns){
             return false;
         }
 

@@ -18,8 +18,12 @@
                 {{ record.domains|length }}
             </td>
             <td>
-                {% if record.dangerousDomains|length %}
-                    {{ record.dangerousDomains|length / record.domains|length * 100|round(2) }}%
+                {% if record.applyAnalysis %}
+                    <small>
+                        {{ record.applyAnalysis }}
+                    </small>
+                {% elseif record.dangerousDomains|length %}
+                    {{ (record.dangerousDomains|length / record.domains|length * 100)|round(2) }}%
                 {% endif %}
             </td>
             <td>

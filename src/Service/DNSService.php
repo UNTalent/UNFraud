@@ -16,6 +16,12 @@ class DNSService {
 
     public function saveDNS(Domain $domain): bool
     {
+
+        $dns = dns_get_record($domain->getHost(), DNS_A);
+        if(!$dns){
+            return false;
+        }
+
         try {
             $dns = dns_get_record($domain->getHost(), DNS_A + DNS_CNAME + DNS_MX + DNS_NS + DNS_SOA);
         } catch (\Exception $e) {

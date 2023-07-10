@@ -9,6 +9,8 @@ use App\Repository\DomainData\DomainDnsRecordRepository;
 
 class DNSService {
 
+    private $existingRecords = [];
+
     public function __construct(private DnsRecordRepository $dnsRecordRepository,
                                 private DomainDnsRecordRepository $domainDnsRecordRepository)
     {
@@ -66,12 +68,22 @@ class DNSService {
 
     private function getDnsRecord(string $type, string $value): ?DnsRecord
     {
+
+        $key = $type . $value;
+        $record = $this->existingRecords[$key] ?? null;
+        if($record){
+            return $record;
+        }
+
         $newRecord = new DnsRecord($type, $value);
         $record = $this->dnsRecordRepository->findSimilar($newRecord);
         if(!$record){
             $record = $newRecord;
             $this->dnsRecordRepository->save($record);
         }
+
+        $this->existingRecords[$key] = $record;
+
         return $record;
     }
 

@@ -101,4 +101,11 @@ class DnsRecord
     public function getDomains(): Collection {
         return $this->getDomainDnsRecords()->map(fn(DomainDnsRecord $domainDnsRecord) => $domainDnsRecord->getDomain());
     }
+
+    /**
+     * @return Collection<int, Domain>
+     */
+    public function getDangerousDomains(): Collection {
+        return $this->getDomains()->filter(fn(Domain $domain) => $domain->getAnalysis()?->getRating()?->isDangerous() ?? false);
+    }
 }

@@ -46,6 +46,17 @@ class DnsRecordRepository extends ServiceEntityRepository
         ]);
     }
 
+    public function findSorted(){
+        return $this->createQueryBuilder('record')
+            ->leftJoin('record.domainDnsRecords', 'domainDnsRecord')->addSelect('domainDnsRecord')
+                ->leftJoin('domainDnsRecord.domain', 'domain')->addSelect('domain')
+                    ->leftJoin('domain.analysis', 'analysis')->addSelect('analysis')
+                        ->leftJoin('analysis.rating', 'rating')->addSelect('rating')
+            ->orderBy('record.recordType', 'ASC')
+            ->addOrderBy('record.value', 'ASC')
+            ->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return DnsRecord[] Returns an array of DnsRecord objects
 //     */

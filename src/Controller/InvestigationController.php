@@ -14,7 +14,7 @@ class InvestigationController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(DnsRecordRepository $recordRepository): Response
     {
-        $dnsRecords = $recordRepository->findAll();
+        $dnsRecords = $recordRepository->findSorted();
         return $this->render('investigation/index.html.twig', [
             'dnsRecords' => $dnsRecords,
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Entity\DomainData;
 
+use App\Entity\Domain;
 use App\Entity\Traits\UUIDTrait;
 use App\Repository\DomainData\DnsRecordRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -33,6 +34,11 @@ class DnsRecord
         $this->setRecordType($recordType);
         $this->setValue($value);
         $this->domainDnsRecords = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->getRecordType() . ' ' . $this->getValue();
     }
 
     public function getRecordType(): ?string
@@ -87,5 +93,12 @@ class DnsRecord
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Domain>
+     */
+    public function getDomains(): Collection {
+        return $this->getDomainDnsRecords()->map(fn(DomainDnsRecord $domainDnsRecord) => $domainDnsRecord->getDomain());
     }
 }

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Investigation tools{% endblock %}
+
+{% block body %}
+
+    <h1>Investigation tools</h1>
+
+    <h2>DNS Records</h2>
+
+    <table>
+    {% for record in dnsRecords %}
+        <tr>
+            <td>
+                {{ record.recordType }}
+            </td>
+            <td>
+                <a href="{{ path('investigation_dns_show', {id: record.id}) }}">{{ record.value }}</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

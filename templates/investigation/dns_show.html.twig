@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ record }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+    <h2>Domains</h2>
+
+    {{ include('domain/_list.html.twig', {domains: record.domains}) }}
+
+
+
+
+{% endblock %}

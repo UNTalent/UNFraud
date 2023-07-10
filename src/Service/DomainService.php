@@ -9,7 +9,8 @@ use Symfony\Component\HttpKernel\Exception\NotAcceptableHttpException;
 
 class DomainService {
 
-    public function __construct(private DomainRepository $domainRepository, private ReportRepository $reportRepository)
+    public function __construct(private DomainRepository     $domainRepository, private ReportRepository $reportRepository,
+                                private InvestigationService $investigationService)
     {
     }
 
@@ -26,6 +27,7 @@ class DomainService {
 
         if ($save){
             $domain->increaseReportCount();
+            $this->investigationService->newDomain($domain);
             $this->reportRepository->add($report);
         }
 
@@ -39,28 +41,28 @@ class DomainService {
 
         if (filter_var($text, FILTER_VALIDATE_EMAIL)) {
             $email_parts = explode('@', $text);
-            $domain = array_pop($email_parts);
-            return $this->createDomain($domain);
+            $hostname = array_pop($email_parts);
+            return $this->createDomain($hostname);
         }
 
         if (!preg_match("#^https?://#i", $text))
             $text = "http://$text";
 
         $parse = parse_url($text);
-        $domain = $parse['host'] ?? null;
-        if ($domain) {
-            return $this->createDomain($domain);
+        $hostname = $parse['host'] ?? null;
+        if ($hostname) {
+            return $this->createDomain($hostname);
         }
 
         return null;
     }
 
-    private function createDomain(string $domain){
-        $domain = mb_strtolower($domain);
-        if(preg_match('#^www\.#i', $domain)){
-            $domain = mb_substr($domain, 4);
+    private function createDomain(string $hostname){
+        $hostname = mb_strtolower($hostname);
+        if(preg_match('#^www\.#i', $hostname)){
+            $hostname = mb_substr($hostname, 4);
         }
-        return new Domain($domain);
+        return new Domain($hostname);
     }
 
 }

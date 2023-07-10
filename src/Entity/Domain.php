@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\DomainData\DomainDnsRecord;
 use App\Entity\Traits\UUIDTrait;
 use App\Repository\DomainRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -56,10 +57,14 @@ class Domain
     #[ORM\Column(options: ['default' => 0])]
     private int $reportCount = 0;
 
+    #[ORM\OneToMany(mappedBy: 'domain', targetEntity: DomainDnsRecord::class)]
+    private Collection $domainDnsRecords;
+
     public function __construct($host)
     {
         $this->setHost($host);
         $this->reports = new ArrayCollection();
+        $this->domainDnsRecords = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -225,6 +230,36 @@ class Domain
     public function increaseReportCount(): static
     {
         $this->reportCount++;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DomainDnsRecord>
+     */
+    public function getDomainDnsRecords(): Collection
+    {
+        return $this->domainDnsRecords;
+    }
+
+    public function addDomainDnsRecord(DomainDnsRecord $domainDnsRecord): static
+    {
+        if (!$this->domainDnsRecords->contains($domainDnsRecord)) {
+            $this->domainDnsRecords->add($domainDnsRecord);
+            $domainDnsRecord->setDomain($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDomainDnsRecord(DomainDnsRecord $domainDnsRecord): static
+    {
+        if ($this->domainDnsRecords->removeElement($domainDnsRecord)) {
+            // set the owning side to null (unless already changed)
+            if ($domainDnsRecord->getDomain() === $this) {
+                $domainDnsRecord->setDomain(null);
+            }
+        }
 
         return $this;
     }

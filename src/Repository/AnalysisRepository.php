@@ -44,6 +44,7 @@ class AnalysisRepository extends ServiceEntityRepository
             ->join('a.rating', 'rating')->addSelect('rating')
             ->join('a.domains', 'domain')->addSelect('domain')
 
+            ->andWhere('domain.parentDomain is null')
             ->andWhere('a.recommendationWeight > 0')
 
             ->orderBy('a.recommendationWeight', 'DESC')

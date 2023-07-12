@@ -45,6 +45,7 @@ form {
 button, .btn {
   background: $color-action;
   color: $color-action-contrast;
+  text-decoration: none;
   border: 2px solid $color-action;
   text-transform: uppercase;
   box-sizing: border-box;
@@ -54,5 +55,6 @@ button, .btn {
 
   &:hover, &:focus {
     background: $color-action-active;
+    color: $color-action-contrast;
   }
 }

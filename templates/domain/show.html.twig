@@ -11,6 +11,12 @@
         Did you find some information or an offer on a website starting by <i>http(s)://{{ domain }}</i>?
     </p>
 
+    {% if domain.isSafe %}
+        <p>
+            Is it legit? Short answer: <b>yes</b>.
+        </p>
+    {% endif %}
+
     {% set analysis = domain.analysis ?? false %}
     {% if analysis %}
 
@@ -35,7 +41,23 @@
                 {% endif %}
             {% endif %}
 
+            {% if domain.isSafe %}
+                <h3>Visit this website</h3>
+                <p>
+                    <a href="https://{{ domain }}" class="btn" target="_blank" rel="noopener follow referrer">Go to {{ domain }}</a>
+                </p>
+            {% endif %}
+
         </div>
+
+        {% if domain.parentDomain %}
+            {% set parent = domain.parentDomain %}
+            <h3>Part of {{ parent }}</h3>
+            <p>
+                The domain {{ domain }} has been marked as being part of {{ parent }}:
+                <a href="{{ path('app_domain_check', {host: parent.host}) }}">see {{ parent }} analysis</a>.
+            </p>
+        {% endif %}
 
         {% if rating.todo ?? false %}
             <h3>What should you do?</h3>

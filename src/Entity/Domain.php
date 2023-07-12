@@ -60,11 +60,18 @@ class Domain
     #[ORM\OneToMany(mappedBy: 'domain', targetEntity: DomainDnsRecord::class)]
     private Collection $domainDnsRecords;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'subdomains')]
+    private ?self $parentDomain = null;
+
+    #[ORM\OneToMany(mappedBy: 'parentDomain', targetEntity: self::class)]
+    private Collection $subdomains;
+
     public function __construct($host)
     {
         $this->setHost($host);
         $this->reports = new ArrayCollection();
         $this->domainDnsRecords = new ArrayCollection();
+        $this->subdomains = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -272,5 +279,57 @@ class Domain
         }
 
         return $this;
+    }
+
+    public function getParentDomain(): ?self
+    {
+        return $this->parentDomain;
+    }
+
+    public function setParentDomain(?self $parentDomain): static
+    {
+        $this->parentDomain = $parentDomain;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getSubdomains(): Collection
+    {
+        return $this->subdomains;
+    }
+
+    public function addSubdomain(self $subdomain): static
+    {
+        if (!$this->subdomains->contains($subdomain)) {
+            $this->subdomains->add($subdomain);
+            $subdomain->setParentDomain($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubdomain(self $subdomain): static
+    {
+        if ($this->subdomains->removeElement($subdomain)) {
+            // set the owning side to null (unless already changed)
+            if ($subdomain->getParentDomain() === $this) {
+                $subdomain->setParentDomain(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function isDangerous(): ?bool
+    {
+        return $this->getAnalysis()?->getRating()?->isDangerous();
+    }
+
+    public function isSafe(): ?bool
+    {
+        return $this->isDangerous() === false;
     }
 }

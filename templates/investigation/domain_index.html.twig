@@ -12,6 +12,7 @@
         {% for domain in domains %}
             <tr>
                 <td>{{ domain }}</td>
+                <td>{{ domain.reportCount }}&times;</td>
                 <td><a href="{{ path('investigation_domain_edit', {host: domain.host}) }}">Edit</a></td>
             </tr>
         {% endfor %}

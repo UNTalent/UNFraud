@@ -46,7 +46,6 @@ class InvestigationController extends AbstractController
 
     #[Route('/domain', name: 'domain_index')]
     public function domain_index(DomainRepository $domainRepository): Response {
-
         $domains = $domainRepository->findToAnalyse();
         return $this->render('investigation/domain_index.html.twig', [
             'domains' => $domains,

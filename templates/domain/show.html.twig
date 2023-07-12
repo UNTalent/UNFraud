@@ -44,7 +44,14 @@
             {% if domain.isSafe %}
                 <h3>Visit this website</h3>
                 <p>
-                    <a href="https://{{ domain }}" class="btn secondary" target="_blank" rel="noopener follow referrer">Go to {{ domain }}</a>
+                    <a href="https://{{ domain.host }}" class="btn secondary" target="_blank" rel="noopener follow referrer">Go to {{ domain }}</a>
+                </p>
+            {% endif %}
+
+            {% if domain.isDangerous and report_email %}
+                <h3>Report your emails</h3>
+                <p>
+                    If you received a potential scam, fraudulent activity, or any other concerning behavior, please report it immediately by forwarding it to <b>{{ report_email }}</b>.
                 </p>
             {% endif %}
 

@@ -6,12 +6,14 @@ use App\Form\EditDnsRecordAnalysisType;
 use App\Repository\DomainData\DnsRecordRepository;
 use App\Entity\DomainData\DnsRecord;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/investigation', name: 'investigation_')]
+#[Route('/admin', name: 'investigation_')]
+#[IsGranted('ROLE_ADMIN')]
 class InvestigationController extends AbstractController
 {
     #[Route('/', name: 'index')]

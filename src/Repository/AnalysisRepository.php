@@ -39,6 +39,21 @@ class AnalysisRepository extends ServiceEntityRepository
         }
     }
 
+    public function findSafe() {
+        return $this->createQueryBuilder('a')
+            ->join('a.rating', 'rating')->addSelect('rating')
+            ->join('a.domains', 'domain')->addSelect('domain')
+
+            ->andWhere('a.recommendationWeight > 0')
+
+            ->orderBy('a.recommendationWeight', 'DESC')
+            ->addOrderBy('a.title', 'ASC')
+            ->addOrderBy('domain.reportCount', 'DESC')
+
+            ->getQuery()->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Analysis[] Returns an array of Analysis objects
 //     */

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Domain;
 use App\Form\NewCheckType;
+use App\Repository\AnalysisRepository;
 use App\Repository\DomainRepository;
 use App\Repository\ReportRepository;
 use App\Service\DomainService;
@@ -53,6 +54,16 @@ class DomainController extends AbstractController
         return $this->renderForm('domain/show.html.twig', [
             'domain' => $domain,
             'reports' => $reportRepository->findByDomain($domain),
+        ]);
+    }
+
+
+    #[Route('recommend', name: 'recommend')]
+    public function recommend(AnalysisRepository $analysisRepository): Response
+    {
+        $analyses = $analysisRepository->findSafe();
+        return $this->renderForm('domain/recommend.html.twig', [
+            'analyses' => $analyses,
         ]);
     }
 }

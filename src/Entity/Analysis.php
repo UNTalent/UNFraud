@@ -36,6 +36,9 @@ class Analysis
     #[ORM\OneToMany(mappedBy: 'applyAnalysis', targetEntity: DnsRecord::class)]
     private Collection $associatedDnsRecords;
 
+    #[ORM\Column(options: ["default" => 0])]
+    private int $recommendationWeight = 0;
+
     public function __toString(): string
     {
         return $this->getTitle();
@@ -139,6 +142,18 @@ class Analysis
                 $associatedDnsRecord->setApplyAnalysis(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRecommendationWeight(): int
+    {
+        return $this->recommendationWeight;
+    }
+
+    public function setRecommendationWeight(int $recommendationWeight): static
+    {
+        $this->recommendationWeight = $recommendationWeight;
 
         return $this;
     }

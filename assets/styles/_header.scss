@@ -1,0 +1,28 @@
+header {
+
+  display: grid;
+  gap: $size-spacer-md;
+  grid-template-columns: auto max-content;
+  align-items: center;
+
+  @include width-tablet {
+    grid-template-columns: max-content;
+    justify-content: center;
+    text-align: center;
+  }
+
+  nav {
+
+    ul, li {
+      display: block;
+      margin: 0;
+        padding: 0;
+    }
+
+    ul {
+      display: flex;
+      gap: $size-spacer-md;
+    }
+
+  }
+}

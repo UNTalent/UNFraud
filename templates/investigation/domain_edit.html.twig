@@ -19,4 +19,15 @@
         {% endfor %}
     </table>
 
+    <h2>Reports</h2>
+
+    <table>
+        {% for report in domain.reports %}
+            <tr>
+                <td>{{ report.value }}</td>
+                <td>{{ report.createdAt|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
 {% endblock %}

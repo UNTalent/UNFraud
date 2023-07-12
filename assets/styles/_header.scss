@@ -1,14 +1,28 @@
 header {
 
+  #logo {
+
+    text-decoration: none;
+    display: inline-flex;
+    grid-template-columns: min-content auto;
+    align-items: center;
+    gap: $size-spacer-md;
+
+    span {
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $color-text;
+      font-size: 1.4em;
+    }
+  }
+
   display: grid;
   gap: $size-spacer-md;
   grid-template-columns: auto max-content;
   align-items: center;
 
   @include width-tablet {
-    grid-template-columns: max-content;
-    justify-content: center;
-    text-align: center;
+    grid-template-columns: auto;
   }
 
   nav {

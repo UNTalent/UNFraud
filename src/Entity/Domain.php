@@ -123,7 +123,13 @@ class Domain
 
     public function getAnalysis(): ?Analysis
     {
-        return $this->analysis;
+        if($this->analysis)
+            return $this->analysis;
+
+        if($parent = $this->getParentDomain())
+            return $parent->getAnalysis();
+
+        return null;
     }
 
     public function setAnalysis(?Analysis $analysis): self

@@ -57,4 +57,16 @@ button, .btn {
     background: $color-action-active;
     color: $color-action-contrast;
   }
+
+  &.secondary {
+      background: transparent;
+      color: $color-text;
+      border-color: $color-text;
+
+      &:hover, &:focus {
+        background: $color-text;
+        color: $color-background;
+      }
+
+  }
 }

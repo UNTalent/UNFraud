@@ -102,6 +102,16 @@ class DomainRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    public function findToAnalyse() {
+        return $this->createQueryBuilder('domain')
+            ->andWhere('domain.analysis IS NULL')
+            ->leftJoin('domain.reports', 'report')->addSelect('report')
+
+            ->orderBy('report.createdAt', 'DESC')
+
+            ->getQuery()->getResult();
+    }
+
 
 
 //    /**

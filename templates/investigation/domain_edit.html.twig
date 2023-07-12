@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin {{ domain }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+    {{ include('_components/form.html.twig', {form: editForm}) }}
+
+{% endblock %}

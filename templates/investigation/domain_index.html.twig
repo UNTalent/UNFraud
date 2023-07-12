@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin domains{% endblock %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+    <h2>Domains</h2>
+
+    <table>
+        {% for domain in domains %}
+            <tr>
+                <td>{{ domain }}</td>
+                <td><a href="{{ path('investigation_domain_edit', {host: domain.host}) }}">Edit</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

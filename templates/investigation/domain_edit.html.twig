@@ -8,4 +8,15 @@
 
     {{ include('_components/form.html.twig', {form: editForm}) }}
 
+    <h2>DNS records</h2>
+
+    <table>
+        {% for record in domain.dnsRecords %}
+            <tr>
+                <td>{{ record.recordType }}</td>
+                <td><a href="{{ path('investigation_dns_show', {id: record.id}) }}">{{ record.value }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
 {% endblock %}

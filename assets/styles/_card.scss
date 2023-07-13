@@ -4,6 +4,10 @@
   border-radius: $size-spacer-md;
   border: 2px solid transparentize($color-text, .9);
 
+  & > *:first-child {
+    margin-top: 0;
+  }
+
   @include width-tablet {
     border-width: 2px 0;
     border-radius: 0;

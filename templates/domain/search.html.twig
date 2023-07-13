@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Check an email address{% endblock %}
+{% block description %}{{ block('description_text')|striptags }}{% endblock %}
+
 
 {% block body %}
 
@@ -9,8 +11,9 @@
         <h1>Is your source legit?</h1>
 
         <p class="important">
-            Are you seeking to <b>confirm the credibility</b> of a job offer, potential collaboration, or other professional correspondence?
-            Employ our verification tool to <b>authenticate an email address or URL</b>.
+            {% block description_text -%}
+                Are you seeking to <b>confirm the credibility</b> of a job offer, potential collaboration, or other professional correspondence? Employ our verification tool to <b>authenticate an email address or URL</b>.
+            {%- endblock %}
         </p>
 
         {{ form_start(newCheckForm) }}

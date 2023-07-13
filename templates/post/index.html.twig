@@ -1,10 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Knowledge base{% endblock %}
+{% block title %}Protect Yourself from Fraudsters{% endblock %}
+{% block description %}Stay one step ahead of scammers with those articles on job scams. Learn how to recognize and avoid deceptive tactics used by fraudsters in the recruitment process. Safeguard your finances and make informed decisions with our expert insights.{% endblock %}
 
 {% block body %}
 
     <h1>{{ block('title') }}</h1>
+
+    <p class="intro">
+        {{ block('description') }}
+    </p>
 
     {% for post in posts %}
         <h2>

@@ -1,6 +1,12 @@
 {% extends "sitemap/_base.xml.twig" %}
 
 {% block content %}
+
+<url>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
+    <loc>{{ url('domain_recommend') }}</loc>
+</url>
 <url>
     <changefreq>weekly</changefreq>
     <priority>1</priority>
@@ -13,4 +19,18 @@
     <loc>{{ url('app_domain_check',{host: domain.host}) }}</loc>
     </url>
 {% endfor %}
+
+<url>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
+    <loc>{{ url('post_index') }}</loc>
+</url>
+{% for post in posts %}
+    <url>
+        <changefreq>weekly</changefreq>
+        <priority>.8</priority>
+        <loc>{{ url('post_show',{id: post.id}) }}</loc>
+    </url>
+{% endfor %}
+
 {% endblock %}

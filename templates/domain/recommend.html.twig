@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Reputable sources{% endblock %}
+{% block description %}Explore this collection of reputable websites, carefully curated to provide job seekers with access to legitimate opportunities and trustworthy recruiters.{% endblock %}
 
 {% block body %}
 
     <h1>{{ block('title') }}</h1>
 
-    <p>
-        Explore this collection of reputable websites, carefully curated to provide job seekers with access to legitimate opportunities and trustworthy recruiters.
+    <p class="intro">
+        {{ block('description') }}
     </p>
     <p>
         Each website on this list has undergone a thorough vetting process to ensure high standards of integrity, verified job listings, and a commitment to the best interests of both job seekers and employers.

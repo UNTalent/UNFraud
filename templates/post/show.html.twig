@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ post.title }}{% endblock %}
+{% block description %}{{ post.intro }}{% endblock %}
 
 {% block body %}
 
@@ -11,5 +12,9 @@
     </p>
 
     {{ post.content|markdown }}
+
+    <p>
+        <a href="{{ path('post_index') }}">Other articles &rarr;</a>
+    </p>
 
 {% endblock %}

@@ -9,6 +9,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="revisit-after" content="1 day" />
 
+        <meta name="description" content="{% block description %}{{ app_name }} helps to fight fraud.{% endblock %}" />
+        <meta name="author" content="{{ app_name }}" />
+        <meta name="copyright" content="Copyright &copy; {{ app_name }} {{ 'now'|date('Y') }}" />
+        <meta name="revisit-after" content="1 week" />
+
+        <meta itemprop="description" content="{{ block('description') }}" />
+        <meta itemprop="image" content="{{ block('image') }}" />
+        <meta itemprop="name" content="{{ block('title') }}" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="{{ app_name }}" />
+        <meta property="og:title" content="{{ block('title') }}" />
+        <meta property="og:description" content="{{ block('description') }}"/>
+        <meta property="og:url" content="{% block currentUrl %}{{ app.request.uri }}{% endblock %}" />
+        <meta property="og:image" content="{% block image %}{{ "https://" ~ app.request.httpHost ~ asset('build/images/social.jpg') }}{% endblock %}" />
+        <meta property="og:locale" content="en_US" />
+
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
@@ -27,8 +44,9 @@
             </a>
             <nav>
                 <ul>
-                    <li><a href="{{ path('app_domain_search')}}">Check a source</a></li>
+                    <li><a href="{{ path('app_domain_search')}}">Source checker</a></li>
                     <li><a href="{{ path('app_domain_recommend')}}">Reputable websites</a></li>
+                    <li><a href="{{ path('post_index')}}">Learn</a></li>
                 </ul>
             </nav>
         </header>

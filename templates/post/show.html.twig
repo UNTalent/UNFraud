@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+    <p class="intro">
+        {{ post.intro }}
+    </p>
+
+    {{ post.content|markdown }}
+
+{% endblock %}

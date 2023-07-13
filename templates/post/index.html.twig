@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Knowledge base{% endblock %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+    {% for post in posts %}
+        <h2>
+            <a href="{{ path('post_show', {id: post.id}) }}">
+                {{ post.title }}
+            </a>
+        </h2>
+        <p>
+            {{ post.intro }}
+        </p>
+    {% endfor %}
+
+{% endblock %}

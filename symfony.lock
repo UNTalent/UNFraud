@@ -73,6 +73,9 @@
             "config/packages/prod/jms_serializer.yaml"
         ]
     },
+    "knplabs/knp-markdown-bundle": {
+        "version": "1.10.0"
+    },
     "phpunit/phpunit": {
         "version": "9.5",
         "recipe": {

@@ -12,14 +12,16 @@
     </p>
 
     {% for post in posts %}
-        <h2>
-            <a href="{{ path('post_show', {id: post.id}) }}">
-                {{ post.title }}
-            </a>
-        </h2>
-        <p>
-            {{ post.intro }}
-        </p>
+        <div class="card">
+            <h2>
+                <a href="{{ path('post_show', {id: post.id}) }}">
+                    {{ post.title }}
+                </a>
+            </h2>
+            <p>
+                {{ post.intro }}
+            </p>
+        </div>
     {% endfor %}
 
 {% endblock %}

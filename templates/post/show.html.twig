@@ -11,7 +11,7 @@
         {{ post.intro }}
     </p>
 
-    {{ post.content|markdown }}
+    {{ post.content|markdown_to_html }}
 
     <p>
         <a href="{{ path('post_index') }}">Other articles &rarr;</a>

@@ -121,10 +121,14 @@ class Domain
         return $this;
     }
 
+    public function getSelfAnalysis(): ?Analysis {
+        return $this->analysis;
+    }
+
     public function getAnalysis(): ?Analysis
     {
-        if($this->analysis)
-            return $this->analysis;
+        if($analysis = $this->getSelfAnalysis())
+            return $analysis;
 
         if($parent = $this->getParentDomain())
             return $parent->getAnalysis();

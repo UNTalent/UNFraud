@@ -28,7 +28,7 @@ class DomainFixtures extends Fixture
             ],
             "Scammer" => [
                 "headoffice-un.org",
-                "wfp.pacific.emploiportal.work",
+                "emploiportal.work", // "wfp.pacific.emploiportal.work",
                 "jobcareer-department.cc",
                 "jobcareer-departments.com",
                 "jobcareerportal.cc",

@@ -24,6 +24,11 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTimeImmutable('now'));
+    }
+
     public function getTitle(): ?string
     {
         return $this->title;
@@ -65,7 +70,7 @@ class Post
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    private function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
 

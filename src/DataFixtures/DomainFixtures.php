@@ -60,6 +60,8 @@ class DomainFixtures extends Fixture
             $analysis->setTitle("$title website");
             $analysis->setInstructions("What to do with $title websites.");
             $analysis->setRating($rating);
+            if($rating->isDangerous() === false)
+                $analysis->setRecommendationWeight($i+1);
 
             $manager->persist($analysis);
 
@@ -76,6 +78,20 @@ class DomainFixtures extends Fixture
             }
 
             $i++;
+        }
+
+        $suggestions = [
+            "outlook.fr",
+            "unops.org",
+        ];
+        foreach ($suggestions as $hostname){
+            $domain = new Domain($hostname);
+            $manager->persist($domain);
+            for($j=0; $j<rand(0, 20); $j++) {
+                $report = new Report("example$j@$hostname", $domain);
+                $manager->persist($report);
+            }
+
         }
         // $product = new Product();
         // $manager->persist($product);

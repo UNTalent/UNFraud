@@ -25,22 +25,31 @@ class DNSService {
         if(! $this->saveDNSEntries($domain, [DNS_CNAME, DNS_MX, DNS_NS, DNS_SOA]))
             return false;
 
+        $this->saveDNSEntries($domain, dmarc: true);
+
         return true;
     }
 
-    private function saveDNSEntries(Domain $domain, array $types): bool {
+    private function saveDNSEntries(Domain $domain, array $types=[], bool $dmarc=false): bool {
+        if($dmarc)
+            $types = [DNS_TXT];
+
         $count = 0;
         foreach ($types as $type) {
-            if($this->saveDNSEntriesOfType($domain, $type))
+            if($this->saveDNSEntriesOfType($domain, $type, $dmarc))
                 $count++;
         }
         return $count > 0;
     }
 
-    private function saveDNSEntriesOfType(Domain $domain, int $type): bool {
+    private function saveDNSEntriesOfType(Domain $domain, int $type, bool $dmarc): bool {
+
+        $hostname = $domain->getHost();
+        if ($dmarc)
+            $hostname = '_dmarc.' . $hostname;
 
         try {
-            $dns = dns_get_record($domain->getHost(), $type);
+            $dns = dns_get_record($hostname, $type);
         } catch (\Exception $e) {
             return false;
         }
@@ -80,6 +89,8 @@ class DNSService {
                 return $entry['rname'] ?? null ;
             case 'MX':
                 return $entry['target'] ?? null ;
+            case 'TXT':
+                return $entry['txt'] ?? null ;
             default:
                 throw new \LogicException("Unknown DNS type: $type");
         }

@@ -50,7 +50,8 @@
         "symfony/yaml": "6.1.*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/markdown-extra": "^3.6",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "webklex/php-imap": "^5.5"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",

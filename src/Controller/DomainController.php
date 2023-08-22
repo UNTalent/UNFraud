@@ -66,4 +66,17 @@ class DomainController extends AbstractController
             'analyses' => $analyses,
         ]);
     }
+
+
+    #[Route('blocklist.txt', name: 'blocklist')]
+    public function blocklist(DomainRepository $domainRepository): Response
+    {
+        $response = $this->render('domain/blocklist.txt.twig', [
+            'domains' => $domainRepository->findDangerous(),
+        ]);
+
+        $response->headers->set('Content-Type', 'text/plain');
+
+        return $response;
+    }
 }

@@ -79,7 +79,6 @@ class DomainRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
-
     public function findRecentDangerous()
     {
         $qb = $this->getActiveQueryBuilder()
@@ -87,6 +86,17 @@ class DomainRepository extends ServiceEntityRepository
             ->where('rating.isDangerous = TRUE')
             ->orderBy('report.createdAt', 'DESC')
             ->setMaxResults(8)
+        ;
+
+        return new Paginator($qb->getQuery());
+    }
+
+    public function findDangerous()
+    {
+        $qb = $this->getActiveQueryBuilder()
+            ->join('domain.reports', 'report')
+            ->where('rating.isDangerous = TRUE')
+            ->orderBy('report.createdAt', 'DESC')
         ;
 
         return new Paginator($qb->getQuery());

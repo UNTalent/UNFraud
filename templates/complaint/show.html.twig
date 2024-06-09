@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Complaint by {{ complaint.email }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+    <p>
+        <label>
+            Link to this page:
+            <input value="{{ url('complaint_edit', {id: complaint.id, code: complaint.code}) }}" readonly />
+        </label>
+    </p>
+
+    <div class="card">
+
+        <h2>What to do?</h2>
+
+        <ol>
+
+            <li>
+                <b>Ignore the sender</b><br>
+                {% if complaint.status.hasReplied %}
+                    Cut all communication with the sender.
+                    Do not reply to any email.
+                    Do not click on any links or download any attachments.
+                {% else %}
+                    Do not reply to the email.
+                {% endif %}
+                Do not click on any links or download any attachments.
+            </li>
+
+            {% if complaint.status.hasSentMoney %}
+                <li>
+                    <b>Try to cancel the payment</b><br>
+                    Regarding the money you sent, contact your bank or credit card company immediately.
+                    They might be able to cancel the transfer.
+                    If you sent money through a service like Western Union, MoneyGram or PayPal, contact them as well.
+                    There is a chance that the money has not been picked up yet, but you need to act quickly.
+                </li>
+            {% endif %}
+
+            {% if complaint.status.hasSentSensitiveData %}
+                <li>
+                    <b>Protect your identity</b><br>
+                    If you sent your ID, Social Security Number, or any other sensitive information that might expose you to identity theft,
+                    contact your local police department. You should also contact your bank and credit card companies regarding that matter.
+                </li>
+            {% endif %}
+
+            <li>
+                <b>Collect proofs</b><br>
+                Add any other information you have to this report.
+                {% if complaint.status.hasSentSensitiveData or complaint.status.hasSentMoney%}
+                    Only take the time to do it once you have taken the necessary steps to protect yourself.
+                {% endif %}
+            </li>
+
+        </ol>
+
+
+    </div>
+
+    <h2>Reported</h2>
+
+    <table>
+    {% for report in complaint.reports %}
+        <tr>
+            <td>{{ report.value }}</td>
+            <td>
+                <a href="{{ path('app_domain_check', {host: report.domain.host}) }}">
+                    {{ report.domain }}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+
+    {% if report_email %}
+        <h2>Report your emails</h2>
+        <p>
+            If you received a potential scam, fraudulent activity, or any other concerning behavior, please report it immediately by forwarding it to <b>{{ report_email }}</b>.
+        </p>
+    {% endif %}
+
+{% endblock %}

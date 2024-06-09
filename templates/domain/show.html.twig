@@ -50,10 +50,14 @@
                 </p>
             {% endif %}
 
-            {% if domain.isDangerous and report_email %}
-                <h3>Report your emails</h3>
+            {% if domain.isDangerous %}
+                <h3>Were you targeted by {{ domain }}?</h3>
                 <p>
-                    If you received a potential scam, fraudulent activity, or any other concerning behavior, please report it immediately by forwarding it to <b>{{ report_email }}</b>.
+                    If you suspect or have encountered a scam or fraudulent activity involving {{ domain }},
+                    please report it immediately:
+                </p>
+                <p>
+                    <a href="{{ path('complaint_create') }}" class="btn secondary block lg">Report {{ domain }}</a>
                 </p>
             {% endif %}
 
@@ -81,7 +85,7 @@
             <p>
                 This domain has been checked <b>{{ reports|length }} times</b>.
                 {% if domain.analysis.rating.isDangerous %}
-                    This number can potentially correspond to the number of uncovered fraud schemes commited via {{ domain }}.
+                    This number can potentially correspond to the number of uncovered fraud schemes committed via {{ domain }}.
                 {% endif %}
             </p>
 

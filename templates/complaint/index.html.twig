@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create a new report{% endblock %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+    <p class="intro">
+        {{ app_name }} is an independent platform.
+        In case you are a victim of a scam, you must also contact your local police department.
+    </p>
+
+    <p>
+        This page allows the collection of evidence of fraudulent activities
+        that can be used by law enforcement and organizations in case of an investigation.
+        All data provided here will be stored and may be used for further analysis, including by third parties.
+    </p>
+
+    <div class="card">
+
+        {% if report_email %}
+            <p>
+                You can also report an email by forwarding it to <b>{{ report_email }}</b>.
+            </p>
+        {% endif %}
+
+        {{ form_start(complaintForm) }}
+            {{ form_widget(complaintForm) }}
+            <button type="submit" class="btn">Send</button>
+        {{ form_end(complaintForm) }}
+
+    </div>
+
+{% endblock %}

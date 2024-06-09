@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Entity\Complaint\Complaint;
+use App\Entity\Complaint\ComplaintReport;
 use App\Entity\Traits\UUIDTrait;
 use App\Repository\ReportRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,6 +27,9 @@ class Report
 
     #[ORM\Column(type: 'datetime_immutable')]
     private $createdAt;
+
+    #[ORM\OneToOne(mappedBy: 'report', cascade: ['persist', 'remove'])]
+    private ?ComplaintReport $complaintReport = null;
 
     public function __construct($value, $domain)
     {
@@ -75,5 +80,37 @@ class Report
     public function isAnalysed(): bool
     {
         return !!$this->getDomain()->getAnalysis();
+    }
+
+    public function getComplaintReport(): ?ComplaintReport
+    {
+        return $this->complaintReport;
+    }
+
+    public function setComplaintReport(ComplaintReport $complaintReport): static
+    {
+        // set the owning side of the relation if necessary
+        if ($complaintReport->getReport() !== $this) {
+            $complaintReport->setReport($this);
+        }
+
+        $this->complaintReport = $complaintReport;
+
+        return $this;
+    }
+
+    public function getComplaint(): ?Complaint
+    {
+        return $this->getComplaintReport()?->getComplaint();
+    }
+
+    public function isDangerous(): ?bool
+    {
+        return $this->getDomain()->isDangerous();
+    }
+
+    public function isSafe(): ?bool
+    {
+        return $this->getDomain()->isSafe();
     }
 }

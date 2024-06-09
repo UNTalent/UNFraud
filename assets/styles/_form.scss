@@ -4,10 +4,9 @@ form {
   display: grid;
   gap: $size-spacer-md;
 
-  // Form groups (label + input)
-  > div > div {
+  > div {
     display: grid;
-    gap: $size-spacer-sm;
+    gap: $size-spacer-md;
   }
 
   // Used for errors in forms
@@ -39,6 +38,16 @@ form {
     font-variant: all-small-caps;
     font-weight: bolder;
     display: block;
+  }
+
+  .radio {
+
+    input {
+      vertical-align: center;
+      display: inline-block;
+      width: auto;
+    }
+
   }
 }
 

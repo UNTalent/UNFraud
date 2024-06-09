@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Complaint\Complaint;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class NewComplaintType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('element', ReportElementType::class, options: [
+                'label' => 'What do you want to report?',
+                'attr' => [
+                    'placeholder' => 'scammer@example.com, fakejobs.example.com, etc.',
+                ],
+            ])
+            ->add('status', options: [
+                'label' => 'Which of the following best describes your situation?',
+                'required' => true,
+                'expanded' => true,
+            ])
+            ->add('country', CountryType::class, options: [
+                'label' => 'What is your citizenship or residency?',
+                'required' => true,
+                'placeholder' => 'Choose a country',
+            ])
+            ->add('email', options: [
+                'label' => 'What is your email address?',
+                'required' => true,
+            ])
+        ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Complaint::class,
+        ]);
+    }
+}

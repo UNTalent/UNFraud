@@ -17,19 +17,7 @@ class NewCheckType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('element', UrlType::class, [
-                'label' => "Enter an email address or an url",
-                'attr' => [
-                    'placeholder' => "https://unops.org, hr@unicef.org, ..."
-                ],
-                'required' => true,
-                'constraints' => [
-                    new AtLeastOneOf([
-                        new Email(),
-                        new Url()
-                    ])
-                ]
-            ])
+            ->add('element', ReportElementType::class)
         ;
     }
 

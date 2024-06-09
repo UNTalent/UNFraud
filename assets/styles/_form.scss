@@ -9,19 +9,30 @@ form {
     gap: $size-spacer-md;
   }
 
-  // Used for errors in forms
-  ul {
-    padding: 0;
-    margin: 0;
-    color: $color-danger;
-    display: grid;
-    gap: $size-spacer-xs;
 
-    li {
+
+  .help-block {
+    color: transparentize($color-text, .5);
+    font-style: italic;
+    font-size: .8em;
+    line-height: 1.4;
+    display: block;
+    margin: $size-spacer-sm 0;
+
+    // Used for errors in forms
+    ul {
+      padding: 0;
       margin: 0;
-      font-style: italic;
-      display: block;
+      color: $color-danger;
+      display: grid;
+      gap: $size-spacer-xs;
+
+      li {
+        margin: 0;
+        display: block;
+      }
     }
+
   }
 
   input, select {

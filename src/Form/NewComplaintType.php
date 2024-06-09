@@ -31,10 +31,12 @@ class NewComplaintType extends AbstractType
                 'label' => 'What is your citizenship or residency?',
                 'required' => true,
                 'placeholder' => 'Choose a country',
+                'help' => 'To know which laws apply to your case'
             ])
             ->add('email', options: [
                 'label' => 'What is your email address?',
                 'required' => true,
+                'help' => "So we can contact you in case of an investigation"
             ])
         ;
     }

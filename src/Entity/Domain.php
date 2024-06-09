@@ -273,7 +273,7 @@ class Domain
     {
         if (!$this->domainDnsRecords->contains($domainDnsRecord)) {
             $this->domainDnsRecords->add($domainDnsRecord);
-            $domainDnsRecord->setDomain($this);
+            //$domainDnsRecord->setDomain($this);
         }
 
         return $this;
@@ -284,7 +284,7 @@ class Domain
         if ($this->domainDnsRecords->removeElement($domainDnsRecord)) {
             // set the owning side to null (unless already changed)
             if ($domainDnsRecord->getDomain() === $this) {
-                $domainDnsRecord->setDomain(null);
+                //$domainDnsRecord->setDomain(null);
             }
         }
 

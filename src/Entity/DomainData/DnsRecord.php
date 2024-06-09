@@ -81,7 +81,7 @@ class DnsRecord
     {
         if (!$this->domainDnsRecords->contains($domainDnsRecord)) {
             $this->domainDnsRecords->add($domainDnsRecord);
-            $domainDnsRecord->setDnsRecord($this);
+            //$domainDnsRecord->setDnsRecord($this);
         }
 
         return $this;
@@ -92,7 +92,7 @@ class DnsRecord
         if ($this->domainDnsRecords->removeElement($domainDnsRecord)) {
             // set the owning side to null (unless already changed)
             if ($domainDnsRecord->getDnsRecord() === $this) {
-                $domainDnsRecord->setDnsRecord(null);
+                //$domainDnsRecord->setDnsRecord(null);
             }
         }
 

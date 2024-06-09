@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Complaint\Complaint;
+use App\Repository\Complaint\ComplaintStatusRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -24,6 +25,7 @@ class NewComplaintType extends AbstractType
                 'label' => 'Which of the following best describes your situation?',
                 'required' => true,
                 'expanded' => true,
+                'query_builder' => fn(ComplaintStatusRepository $repository) => $repository->getOrderedQueryBuilder(),
             ])
             ->add('country', CountryType::class, options: [
                 'label' => 'What is your citizenship or residency?',

@@ -39,6 +39,15 @@ class ComplaintStatusRepository extends ServiceEntityRepository
         }
     }
 
+    public function getOrderedQueryBuilder()
+    {
+        return $this->createQueryBuilder('status')
+            ->addOrderBy('status.hasReplied', 'ASC')
+            ->addOrderBy('status.hasSentSensitiveData', 'ASC')
+            ->addOrderBy('status.hasSentMoney', 'ASC')
+        ;
+    }
+
 //    /**
 //     * @return ComplaintStatus[] Returns an array of ComplaintStatus objects
 //     */

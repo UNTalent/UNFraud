@@ -68,6 +68,7 @@ form {
 }
 
 button, .btn {
+  display: inline-block;
   background: $color-action;
   color: $color-action-contrast;
   text-decoration: none;

@@ -23,7 +23,10 @@ class PostRepository extends ServiceEntityRepository
 
     public function findActive(): array
     {
-        return $this->findAll();
+        return $this->createQueryBuilder('post')
+            ->orderBy('post.createdAt', 'DESC')
+            ->getQuery()->getResult()
+        ;
     }
 
 //    /**

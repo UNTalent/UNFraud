@@ -105,7 +105,10 @@ class DomainRepository extends ServiceEntityRepository
     public function findToInvestigate()
     {
         return $this->createQueryBuilder('domain')
-            ->where('domain.lastCheckAt IS NULL')
+
+            ->where('domain.lastCheckAt IS NULL OR domain.lastCheckAt < :date')
+            ->setParameter('date', new \DateTime('-6 months'))
+
             ->leftJoin('domain.analysis', 'analysis')->addSelect('analysis')
             ->leftJoin('analysis.rating', 'rating')->addSelect('rating')
             //->andWhere('rating.isDangerous = TRUE')

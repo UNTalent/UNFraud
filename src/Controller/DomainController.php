@@ -69,9 +69,13 @@ class DomainController extends AbstractController
 
 
     #[Route('blocklist.txt', name: 'blocklist')]
-    public function blocklist(DomainRepository $domainRepository): Response
+    #[Route('adblocker.txt', name: 'adblock')]
+    public function blocklist(DomainRepository $domainRepository, Request $request): Response
     {
+        $useAds = str_contains($request->attributes->get('_route'), 'adblock');
+
         $response = $this->render('domain/blocklist.txt.twig', [
+            'useAds' => $useAds,
             'domains' => $domainRepository->findDangerous(),
         ]);
 

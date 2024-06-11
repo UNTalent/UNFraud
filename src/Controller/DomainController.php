@@ -19,8 +19,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class DomainController extends AbstractController
 {
     #[Route('/', name: 'search')]
-    public function search(Request                $request, DomainService $checkService,
-                           DomainRepository       $domainRepository, ReportRepository $reportRepository,
+    public function search(Request $request, DomainService $checkService,
+                           DomainRepository $domainRepository, ReportRepository $reportRepository,
                            EntityManagerInterface $em): Response
     {
 
@@ -33,6 +33,7 @@ class DomainController extends AbstractController
             if (!$report->getDomain()) {
                 $element->addError(new FormError("Invalid format"));
             }else{
+                $request->getSession()->set(ComplaintController::SESSION_REPORT_VALUE, $report->getValue());
                 $em->flush();
                 return $this->redirectToRoute('app_domain_check', ['host' => $report->getDomain()->getHost()]);
             }

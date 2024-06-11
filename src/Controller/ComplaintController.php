@@ -16,12 +16,17 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/report', name: 'complaint_')]
 class ComplaintController extends AbstractController
 {
+
+    const SESSION_REPORT_VALUE = 'reportValue';
+
     #[Route('/new', name: 'create')]
     public function create(Request $request, EntityManagerInterface $em, DomainService $domainService): Response
     {
 
         $complaint = new Complaint();
-        $complaintForm = $this->createForm(NewComplaintType::class, $complaint);
+        $complaintForm = $this->createForm(NewComplaintType::class, $complaint, [
+            'default_report_value' => $request->getSession()->get(self::SESSION_REPORT_VALUE, null)
+        ]);
         $complaintForm->handleRequest($request);
 
         if ($complaintForm->isSubmitted() && $complaintForm->isValid()) {
@@ -33,6 +38,7 @@ class ComplaintController extends AbstractController
                 $element->addError(new FormError("This is not a fraudulent element."));
             }else{
 
+                $request->getSession()->remove(self::SESSION_REPORT_VALUE);
                 $complaintReport = new ComplaintReport($complaint, $report);
 
                 $em->persist($complaintReport);

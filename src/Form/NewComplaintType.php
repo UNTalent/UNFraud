@@ -17,6 +17,7 @@ class NewComplaintType extends AbstractType
         $builder
             ->add('element', ReportElementType::class, options: [
                 'label' => 'What do you want to report?',
+                'data' => $options['default_report_value'],
                 'attr' => [
                     'placeholder' => 'scammer@example.com, fakejobs.example.com, etc.',
                 ],
@@ -45,6 +46,7 @@ class NewComplaintType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Complaint::class,
+            'default_report_value' => null,
         ]);
     }
 }

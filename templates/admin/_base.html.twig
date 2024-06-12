@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('investigation_domain_index') }}">Domains</a>
+    <a href="{{ path('investigation_dns_index') }}">DNS</a>
+
+    {% block body_admin %}
+
+        Use body_admin block to add content to the admin area.
+
+    {% endblock %}
+{% endblock %}

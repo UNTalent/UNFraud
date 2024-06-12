@@ -20,10 +20,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class InvestigationController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(DnsRecordRepository $recordRepository): Response
+    public function index(): Response
+    {
+        return $this->redirectToRoute('investigation_domain_index');
+    }
+    #[Route('/dns', name: 'dns_index')]
+    public function dns_index(DnsRecordRepository $recordRepository): Response
     {
         $dnsRecords = $recordRepository->findSorted();
-        return $this->render('investigation/dns_index.html.twig', [
+        return $this->render('admin/investigation/dns_index.html.twig', [
             'dnsRecords' => $dnsRecords,
         ]);
     }
@@ -38,7 +43,7 @@ class InvestigationController extends AbstractController
             return $this->redirectToRoute('investigation_dns_show', ['id' => $record->getId()]);
         }
 
-        return $this->render('investigation/dns_show.html.twig', [
+        return $this->render('admin/investigation/dns_show.html.twig', [
             'record' => $record,
             'editForm' => $editForm->createView(),
         ]);
@@ -47,7 +52,7 @@ class InvestigationController extends AbstractController
     #[Route('/domain', name: 'domain_index')]
     public function domain_index(DomainRepository $domainRepository): Response {
         $domains = $domainRepository->findToAnalyse();
-        return $this->render('investigation/domain_index.html.twig', [
+        return $this->render('admin/investigation/domain_index.html.twig', [
             'domains' => $domains,
         ]);
     }
@@ -62,7 +67,7 @@ class InvestigationController extends AbstractController
             return $this->redirectToRoute('investigation_domain_index');
         }
 
-        return $this->renderForm('investigation/domain_edit.html.twig', [
+        return $this->renderForm('admin/investigation/domain_edit.html.twig', [
             'editForm' => $editForm,
             'domain' => $domain,
         ]);

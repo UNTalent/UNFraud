@@ -1,0 +1,22 @@
+{% extends 'admin/_base.html.twig' %}
+
+{% block title %}Complaints{% endblock %}
+
+{% block body_admin %}
+
+    <h1>{{ block('title') }}</h1>
+
+    <table>
+    {% for complaint in complaints %}
+        <tr>
+            <td>{{ complaint.email }}</td>
+            <td>
+                <a href="{{ path('complaint_edit', {code: complaint.code, id: complaint.id}) }}">
+                    {{ complaint.createdAt|date('Y-m-d H:i:s') }}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+{% endblock %}

@@ -39,6 +39,15 @@ class ComplaintRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllByDate(): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC')
+
+            ->getQuery()->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Complaint[] Returns an array of Complaint objects
 //     */

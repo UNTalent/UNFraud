@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Complaint\Complaint;
 use App\Entity\Complaint\ComplaintReport;
 use App\Form\NewComplaintType;
+use App\Form\ReportElementType;
 use App\Service\DomainService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,13 +61,31 @@ class ComplaintController extends AbstractController
 
 
     #[Route('/{id}/{code}/edit', name: 'edit')]
-    public function edit(Complaint $complaint, $code): Response
+    public function edit(Complaint $complaint, $code, DomainService $domainService, Request $request, EntityManagerInterface $em): Response
     {
         if($complaint->getCode() !== $code) {
             throw $this->createNotFoundException('The code is not valid');
         }
 
+        $addComplaintForm = $this->createForm(ReportElementType::class);
+        $addComplaintForm->handleRequest($request);
+        if ($addComplaintForm->isSubmitted() && $addComplaintForm->isValid()) {
+
+            $report = $domainService->getReport($addComplaintForm->getData());
+            if($report){
+                $complaintReport = new ComplaintReport($complaint, $report);
+                $em->persist($complaintReport);
+                $em->flush();
+
+                return $this->redirectToRoute('complaint_edit', [
+                    'id' => $complaint->getId(),
+                    'code' => $complaint->getCode()
+                ]);
+            }
+        }
+
         return $this->renderForm('complaint/show.html.twig', [
+            'addComplaintForm' => $addComplaintForm,
             'complaint' => $complaint,
         ]);
     }

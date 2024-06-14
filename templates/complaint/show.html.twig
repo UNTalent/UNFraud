@@ -77,6 +77,16 @@
     {% endfor %}
     </table>
 
+    <h2>Add to the report</h2>
+    <p>
+        Add any other email addresses, or websites that you think are related to this scam,
+        including legit emails included among fraudulent addresses.
+    </p>
+    {{ form_start(addComplaintForm) }}
+        {{ form_widget(addComplaintForm) }}
+        <button type="submit">Add to the report</button>
+    {{ form_end(addComplaintForm) }}
+
 
     {% if report_email %}
         <h2>Report your emails</h2>

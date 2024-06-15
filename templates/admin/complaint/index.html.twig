@@ -10,6 +10,7 @@
     {% for complaint in complaints %}
         <tr>
             <td>{{ complaint.email }}</td>
+            <td>{{ complaint.country }}</td>
             <td>
                 <a href="{{ path('complaint_edit', {code: complaint.code, id: complaint.id}) }}">
                     {{ complaint.createdAt|date('Y-m-d H:i:s') }}

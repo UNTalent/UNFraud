@@ -37,6 +37,9 @@ class ResourceController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        return $this->redirect($url);
+        $response = $this->redirect($url);
+        $response->headers->set('X-Robots-Tag', 'noindex, nofollow');
+
+        return $response;
     }
 }

@@ -1,10 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Resources{% endblock %}
+{% block title %}Essential Tools to Protect Yourself from Cyber Threats{% endblock %}
+{% block description %}To help you stay secure, we've compiled a list of essential tools that can significantly reduce your risk. These tools provide a robust defense against cyber threats.{% endblock %}
 
 {% block body %}
 
     <h1>{{ block('title') }}</h1>
+
+    <p class="intro">
+        {{ block('description') }}
+    </p>
 
 
     {% for collection in collections %}

@@ -28,8 +28,21 @@
 {% for post in posts %}
     <url>
         <changefreq>weekly</changefreq>
-        <priority>.8</priority>
+        <priority>.7</priority>
         <loc>{{ url('post_show',{id: post.id}) }}</loc>
+    </url>
+{% endfor %}
+
+<url>
+    <changefreq>weekly</changefreq>
+    <priority>1</priority>
+    <loc>{{ url('resource_index') }}</loc>
+</url>
+{% for collection in collections %}
+    <url>
+        <changefreq>weekly</changefreq>
+        <priority>.8</priority>
+        <loc>{{ url('resource_collection',{id: collection.id}) }}</loc>
     </url>
 {% endfor %}
 

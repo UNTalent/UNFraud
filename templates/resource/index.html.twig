@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resources{% endblock %}
+
+{% block body %}
+
+    <h1>{{ block('title') }}</h1>
+
+
+    {% for collection in collections %}
+        <div class="card">
+
+            <h2>
+                <a href="{{ path('resource_collection', {id: collection.id}) }}" class="with-icon">
+                    <span>
+                        {{ collection.emoji }}
+                    </span>
+                    <span>
+                        {{ collection.name }}
+                    </span>
+                </a>
+            </h2>
+
+            <p>
+                {{ collection.description }}
+            </p>
+
+        </div>
+    {% endfor %}
+
+
+    <div class="card">
+
+        <h2>
+            <a href="{{ path('post_index') }}" class="with-icon">
+                <span>
+                    📝
+                </span>
+                <span>
+                    Articles
+                </span>
+            </a>
+        </h2>
+
+        <p>
+            Stay one step ahead of scammers with those articles on job scams.
+            Learn how to recognize and avoid deceptive tactics used by fraudsters in the recruitment process.
+        </p>
+
+    </div>
+
+{% endblock %}

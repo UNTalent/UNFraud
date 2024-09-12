@@ -32,3 +32,18 @@
   border-radius: $size-spacer-xs;
   border: 2px solid rgba(255, 255, 255, 0.1);
 }
+
+.with-icon {
+  display: grid;
+  grid-template-columns: min-content auto;
+  gap: .5em;
+  text-decoration: none;
+
+  > *:first-child {
+    text-decoration: none;
+  }
+
+  > *:last-child {
+    text-decoration: underline;
+  }
+}

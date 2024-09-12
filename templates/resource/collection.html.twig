@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ collection.name }}{% endblock %}
+
+{% block body %}
+
+    <h1>
+        {{ block('title') }}
+    </h1>
+
+    <p class="intro">
+        {{ collection.description }}
+    </p>
+
+    <div class="alternate">
+
+        {% for resource in collection.resources %}
+            <div class="card">
+
+                <h2>
+                    <a href="{{ path('resource_show', {id: resource.id}) }}">{{ resource.title }}</a>
+                </h2>
+                {% if resource.description %}
+                    <p>
+                        {{ resource.description }}
+                    </p>
+                {% endif %}
+
+                <a href="{{ path('resource_show', {id: resource.id}) }}" class="btn secondary sm">Get {{ resource.title }} here</a>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

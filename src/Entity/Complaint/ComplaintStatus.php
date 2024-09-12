@@ -29,6 +29,9 @@ class ComplaintStatus
     #[ORM\OneToMany(mappedBy: 'status', targetEntity: Complaint::class)]
     private Collection $complaints;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $emoji = null;
+
     public function __toString(): string
     {
         return $this->getName() ?? '';
@@ -113,6 +116,18 @@ class ComplaintStatus
                 $complaint->setStatus(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmoji(): ?string
+    {
+        return $this->emoji;
+    }
+
+    public function setEmoji(?string $emoji): static
+    {
+        $this->emoji = $emoji;
 
         return $this;
     }

@@ -96,4 +96,9 @@ button, .btn {
       }
 
   }
+
+  &.sm {
+    padding: $size-spacer-xs $size-spacer-sm;
+    font-size: .9em;
+  }
 }

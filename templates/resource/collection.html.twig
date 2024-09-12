@@ -8,9 +8,9 @@
         {{ block('title') }}
     </h1>
 
-    <p class="intro">
-        {{ collection.description }}
-    </p>
+    <div class="with-intro">
+        {{ collection.description|markdown_to_html }}
+    </div>
 
     <div class="alternate">
 

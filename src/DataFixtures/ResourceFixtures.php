@@ -58,6 +58,13 @@ class ResourceFixtures extends Fixture
             $collection->setName($category);
             $collection->setDescription("The best $category services");
             $collection->setEmoji("🔒");
+            if(rand(0,1)){
+                $collection->setTitle("The best $category services");
+            }
+
+            if(rand(0,1)){
+                $collection->setShortDescription("The short text for best $category services");
+            }
 
             foreach ($resources as $title => $url) {
                 $resource = new Resource();

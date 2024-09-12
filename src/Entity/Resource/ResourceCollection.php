@@ -30,6 +30,12 @@ class ResourceCollection
     #[ORM\Column(length: 20)]
     private ?string $emoji = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $shortDescription = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $title = null;
+
     public function __construct()
     {
         $this->resources = new ArrayCollection();
@@ -109,6 +115,33 @@ class ResourceCollection
     public function setEmoji(string $emoji): static
     {
         $this->emoji = $emoji;
+
+        return $this;
+    }
+
+    public function getShortDescription(): ?string
+    {
+        if($t = $this->shortDescription)
+            return $t;
+
+        return $this->getDescription();
+    }
+
+    public function setShortDescription(?string $shortDescription): static
+    {
+        $this->shortDescription = $shortDescription;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): static
+    {
+        $this->title = $title;
 
         return $this;
     }

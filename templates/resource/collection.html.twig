@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ collection.name }}{% endblock %}
+{% block title %}{{ collection.title ?? collection.name }}{% endblock %}
 
 {% block body %}
 

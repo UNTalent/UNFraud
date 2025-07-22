@@ -57,8 +57,12 @@ class DomainService {
         return null;
     }
 
-    private function createDomain(string $hostname){
+    private function createDomain(string $hostname): ?Domain {
         $hostname = mb_strtolower($hostname);
+        if(strpos($hostname, '.') === false) {
+            return null;
+        }
+
         if(preg_match('#^www\.#i', $hostname)){
             $hostname = mb_substr($hostname, 4);
         }

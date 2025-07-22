@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\AtLeastOneOf;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Url;
 
 class ReportElementType extends AbstractType
@@ -30,7 +31,11 @@ class ReportElementType extends AbstractType
                 new AtLeastOneOf([
                     new Email(),
                     new Url()
-                ])
+                ]),
+                new Regex(
+                    '#\.#',
+            "The input must be a valid email address or a URL."
+                )
             ]
         ]);
     }
